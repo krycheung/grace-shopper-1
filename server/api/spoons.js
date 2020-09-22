@@ -15,3 +15,13 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:id', async (req, res, next) => {
+  const spoonId = req.body.spoodId
+  try {
+    const spoonRes = await Spoon.findByPk(spoonId)
+    res.send(spoonRes.data)
+  } catch (err) {
+    next(err)
+  }
+})
