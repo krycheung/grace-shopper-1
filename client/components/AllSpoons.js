@@ -2,9 +2,18 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSpoons} from '../store/allSpoonsReducer'
 
-export class AllSpoons extends React.Component {
-  async componentDidMount() {
-    await this.props.getSpoons()
+class AllSpoons extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props)
+    this.state = {
+      spoons: []
+    }
+  }
+
+  componentDidMount() {
+    console.log('Component mounted')
+    this.props.getSpoons()
   }
 
   render() {
