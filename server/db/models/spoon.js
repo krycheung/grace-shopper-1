@@ -23,6 +23,9 @@ const Spoon = db.define('spoons', {
   description: {
     type: Sequelize.TEXT
   },
+  price: {
+    type: Sequelize.INTEGER
+  },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
