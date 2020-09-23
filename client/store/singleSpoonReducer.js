@@ -16,10 +16,6 @@ export const getSingleSpoonThunk = spoonId => {
   return async dispatch => {
     try {
       const singleSpoonRes = await axios.get(`/api/spoons/${spoonId}`)
-      console.log(
-        'inside thunk, this is the axios response object',
-        singleSpoonRes
-      )
       const singleSpoon = singleSpoonRes.data
       dispatch(getSpoon(singleSpoon))
     } catch (err) {
@@ -33,7 +29,6 @@ export const getSingleSpoonThunk = spoonId => {
 export default function(state = defaultSingleSpoon, action) {
   switch (action.type) {
     case GET_SPOON:
-      console.log('THIS IS action {} inside SP Reducer:', action)
       return action.spoon
     default:
       return state

@@ -13,14 +13,9 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-  // console.log('req.params.id in api singlesp route', req.params.id)
   const spoonId = req.params.id
   try {
     const spoonRes = await Spoon.findByPk(spoonId)
-    console.log(
-      'spoonRes.dataValues Object in api singlesp route',
-      spoonRes.dataValues
-    )
     res.send(spoonRes.dataValues)
   } catch (err) {
     next(err)
