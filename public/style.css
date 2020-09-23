@@ -22,13 +22,15 @@ form div {
 
 .spoon {
   background-color: rgb(228, 208, 122);
-  padding: 50px;
+  padding: 20px;
   border: 3px rgb(94, 79, 15);
   margin: 50px;
+  width: 200px;
+  height: auto;
 }
 
 .spoon-img {
-  height: 100px;
+  height: 150px;
   width: auto;
 }
 
