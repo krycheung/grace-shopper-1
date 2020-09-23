@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: rgb(221, 223, 236);
 }
 
 a {
@@ -22,16 +23,17 @@ form div {
 
 .spoon {
   background-color: rgb(228, 208, 122);
-  padding: 20px;
-  border: 3px rgb(94, 79, 15);
-  margin: 50px;
-  width: 200px;
-  height: auto;
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+  height: 400px;
+  border-radius: 25px;
+  border: 1px solid rgb(0, 0, 0);
 }
 
 .spoon-img {
-  height: 150px;
-  width: auto;
+  height: auto;
+  width: 200px;
 }
 
 .all-spoons-container {
