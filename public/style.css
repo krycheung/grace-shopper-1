@@ -19,3 +19,24 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.spoon {
+  background-color: rgb(228, 208, 122);
+  padding: 20px;
+  border: 3px rgb(94, 79, 15);
+  margin: 50px;
+  width: 200px;
+  height: auto;
+}
+
+.spoon-img {
+  height: 150px;
+  width: auto;
+}
+
+.all-spoons-container {
+  display: flex;
+  flex-flow: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}

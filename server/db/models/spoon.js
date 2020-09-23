@@ -24,12 +24,12 @@ const Spoon = db.define('spoons', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://cdn.shopify.com/s/files/1/0552/3117/products/bspink.jpg?v=1571439120'
+      'https://static.onecms.io/wp-content/uploads/sites/9/2017/04/kawaii-cute-spoon-appliance-gifts-blog0417.jpg'
   },
   quantity: {
     type: Sequelize.INTEGER
