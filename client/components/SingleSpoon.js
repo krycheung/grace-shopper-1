@@ -17,10 +17,10 @@ export class SingleSpoon extends Component {
     //console.log("this.props.singleSpoon:", this.props.singleSpoon)
     return (
       <div>
-        <h1>The {this.props.singleSpoon.brand}</h1>
+        <h1>By: {this.props.singleSpoon.brand}</h1>
         <img src={this.props.singleSpoon.imageUrl} />
-        <h3>Description:{this.props.singleSpoon.description}</h3>
-        <h2>Material:{this.props.singleSpoon.material}</h2>
+        <h3>Description: {this.props.singleSpoon.description}</h3>
+        <h2>Material: {this.props.singleSpoon.material}</h2>
       </div>
     )
   }
