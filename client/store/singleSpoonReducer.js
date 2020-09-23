@@ -14,9 +14,13 @@ const getSpoon = singleSpoon => ({type: GET_SPOON, spoon: singleSpoon})
 
 export const getSingleSpoonThunk = spoonId => {
   return async dispatch => {
-    const singleSpoonRes = await axios.get(`/api/spoons/:${spoonId}`)
-    const singleSpoon = singleSpoonRes.data
-    dispatch(getSpoon(singleSpoon))
+    try {
+      const singleSpoonRes = await axios.get(`/api/spoons/${spoonId}`)
+      const singleSpoon = singleSpoonRes.data
+      dispatch(getSpoon(singleSpoon))
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
