@@ -1,4 +1,3 @@
-const {green, red} = require('chalk')
 const db = require('../server/db')
 const {Spoon, User} = require('../server/db/models')
 
