@@ -209,7 +209,8 @@ const seed = async () => {
           material: spoon.material,
           category: spoon.category,
           description: spoon.description,
-          price: spoon.price
+          price: spoon.price,
+          imageUrl: spoon.imageUrl
         })
       )
     )
