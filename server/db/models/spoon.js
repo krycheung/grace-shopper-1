@@ -18,13 +18,13 @@ const Spoon = db.define('spoons', {
     }
   },
   category: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.INTEGER
   },
   imageUrl: {
     type: Sequelize.STRING,

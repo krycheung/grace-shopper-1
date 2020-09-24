@@ -1,5 +1,5 @@
 const db = require('../server/db')
-const {Spoon, User} = require('../server/db/models')
+const {Spoon, User, Order, SPOON_ORDER} = require('../server/db/models')
 
 const anHourFromNow = new Date(Date.now() + 60 * (60 * 1000)).toString()
 
@@ -43,7 +43,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Dining',
     description: 'Your standard spoon',
-    price: 9.0,
+    price: 9,
     imageUrl:
       'https://images.replacements.com/cdn-cgi/image/format=auto,width=555px/https://images.replacements.com/images/images1/flatware/I/P0000339625S0011T1.jpg'
   },
@@ -53,7 +53,7 @@ const spoons = [
     material: 'Plastic',
     category: 'Dining',
     description: 'You definitely want one',
-    price: 8.5,
+    price: 8,
     imageUrl:
       'https://www.davidstea.com/dw/image/v2/BBXZ_PRD/on/demandware.static/-/Sites-davidstea-master-catalog/default/dw16c1edcd/productimages/901969DT01VAR0039908-901969US01VAR0040346-BI-1.jpg?sw=450&sh=450&sm=fit'
   },
@@ -63,7 +63,7 @@ const spoons = [
     material: 'Ceramic',
     category: 'Dining',
     description: 'Handmade ceramic dining spoon.',
-    price: 12.0,
+    price: 12,
     imageUrl:
       'https://cdn.shopify.com/s/files/1/0552/3117/products/bspink.jpg?v=1571439120'
   },
@@ -73,7 +73,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Kitchen',
     description: 'Big scooping spoon',
-    price: 8.0,
+    price: 8,
     imageUrl:
       'https://cdn.shopify.com/s/files/1/0552/3117/products/bspink.jpg?v=1571439120'
   },
@@ -83,7 +83,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Kitchen',
     description: 'A spoon and a shovel',
-    price: 6.5,
+    price: 6,
     imageUrl:
       'https://img.joomcdn.net/34b8d54a59862d4214e60ed770327086ddd3ca4c_400_400.jpeg'
   },
@@ -93,7 +93,7 @@ const spoons = [
     material: 'Copper',
     category: 'Dessert',
     description: 'Fancy ice cream spoon',
-    price: 7.5,
+    price: 7,
     imageUrl:
       'https://ae01.alicdn.com/kf/H59e205ec163a48b68f146a08572add4a8/Stainless-Steel-Spoon-Gifts-Beautiful-Korean-Spoon-Long-Handle-Spoon-Stir-Drinking-Home-Kitchen-Dessert-Milk.jpeg'
   },
@@ -103,7 +103,7 @@ const spoons = [
     material: 'Silicone',
     category: 'Soup',
     description: 'Big spoon for like soup and stuff',
-    price: 5.5,
+    price: 5,
     imageUrl:
       'https://i2.wp.com/ae01.alicdn.com/kf/HLB1qw1GX5frK1RjSspbxh74pFXau/1pcs-Thicken-Stainless-Steel-Long-Handle-Ladle-Spoon-Big-Soup-Ladle-Useful-Kitchen-Cooking-Tool-Utensil.jpeg?fit=600%2C600&ssl=1'
   },
@@ -123,7 +123,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Perfect portions for matcha and tea',
-    price: 4.5,
+    price: 4,
     imageUrl:
       'https://cdn.shopify.com/s/files/1/0898/3392/products/31X_2BDxVW3CL_1080x.jpeg?v=1449438395'
   },
@@ -133,7 +133,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Slotted',
     description: 'You know, so you can strain what you are scooping',
-    price: 11.5,
+    price: 11,
     imageUrl: 'https://www.slx-hospitality.com/app/uploads/2016/09/53481.jpeg'
   },
   {
@@ -142,7 +142,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Mermaid machiatto spoon!',
-    price: 45.5,
+    price: 45,
     imageUrl: 'https://cdn-o.fishpond.com/0192/320/731/869833523/original.jpeg'
   },
   {
@@ -151,7 +151,7 @@ const spoons = [
     material: 'Stainless steel',
     category: 'Restaraunt',
     description: 'Threaded bar spoon for all of your cocktail hours',
-    price: 9.5,
+    price: 9,
     imageUrl:
       'https://cdnimg.webstaurantstore.com/images/products/extra_large/525451/1951622.jpg'
   },
@@ -161,7 +161,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Novelty',
     description: 'Beat your cat to polluting your beverages with this spoon!',
-    price: 8.0,
+    price: 8,
     imageUrl:
       'https://cdn.shopify.com/s/files/1/0384/9722/2787/products/product-image-1321668478_530x@2x.jpg?v=1586858573'
   },
@@ -171,7 +171,7 @@ const spoons = [
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Gold, stainless steel coffee spoon',
-    price: 13.5,
+    price: 13,
     imageUrl:
       'https://img.joomcdn.net/99aa39d5b31f6ce65d1f6d1b94a1dcbe7145bab1_original.jpeg'
   },
@@ -181,8 +181,31 @@ const spoons = [
     material: 'Wood',
     category: 'Kitchen',
     description: 'If grandma has it in her hand, run!',
-    price: 7.5,
+    price: 7,
     imageUrl: 'https://www.zoro.com/static/cms/product/full/Z30O-xfo5oy.JPG'
+  }
+]
+
+let orders = [
+  {
+    id: 1,
+    status: false,
+    userId: 4
+  },
+  {
+    id: 2,
+    status: false,
+    userId: 2
+  },
+  {
+    id: 3,
+    status: false,
+    userId: 5
+  },
+  {
+    id: 4,
+    status: false,
+    userId: 3
   }
 ]
 
@@ -200,7 +223,7 @@ const seed = async () => {
       )
     )
 
-    const itemInCart = await Promise.all(
+    const spoonInfo = await Promise.all(
       spoons.map(spoon =>
         Spoon.create({
           id: spoon.id,
@@ -213,9 +236,20 @@ const seed = async () => {
         })
       )
     )
+    const fakeOrder = await Promise.all(
+      orders.map(order =>
+        Order.create({
+          status: order.status,
+          userId: order.userId
+        })
+      )
+    )
 
-    await customers[0].addSpoon(itemInCart[0])
-    await customers[1].addSpoon(itemInCart[1])
+    await fakeOrder[0].addSpoon(spoonInfo[0], {through: {quantity: 4}})
+    await fakeOrder[0].addSpoon(spoonInfo[8], {through: {quantity: 5}})
+    await fakeOrder[0].addSpoon(spoonInfo[7], {through: {quantity: 19}})
+    await fakeOrder[0].addSpoon(spoonInfo[6], {through: {quantity: 13}})
+    await fakeOrder[2].addSpoon(spoonInfo[3], {through: {quantity: 3}})
 
     // seed your database here!
   } catch (err) {
