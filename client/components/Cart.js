@@ -4,10 +4,12 @@ import {fetchCart} from '../store/ordersReducer'
 
 class Cart extends React.Component {
   componentDidMount() {
-    this.props.getCart()
+    // where we have a switch case for signed in or not (local state stuff)??
+    this.props.getCart(this.props.user.id)
   }
 
   render() {
+    // on update and submit handles, send props.user over in req.body
     let cart = this.props.cart
     return (
       <div>
@@ -42,13 +44,14 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.orders.cart
+    cart: state.orders.cart,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getCart: () => dispatch(fetchCart())
+    getCart: id => dispatch(fetchCart(id))
   }
 }
 
