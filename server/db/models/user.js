@@ -2,8 +2,6 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-///THIS IS MARTA's Handly dandy test for out very first branch > change > push > merge as a team family.
-
 const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
