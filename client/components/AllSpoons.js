@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 
 class AllSpoons extends React.Component {
   componentDidMount() {
-    console.log('Component mounted')
     this.props.getSpoons()
   }
 
