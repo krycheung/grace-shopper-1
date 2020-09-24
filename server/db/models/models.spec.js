@@ -1,105 +1,73 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const seed = require('../../../script/seed')
 const db = require('../index')
 const User = db.model('user')
 const Spoon = db.model('spoons')
+const Order = db.model('orders')
 
-describe('Spoon and User models', () => {
+describe('Models', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
-  describe('user instanceMethods', () => {
-    describe('correctPassword', () => {
-      let cody
+  describe('correctPassword', () => {
+    let cody
 
-      beforeEach(async () => {
-        cody = await User.create({
-          email: 'cody@puppybook.com',
-          password: 'bones'
-        })
+    beforeEach(async () => {
+      cody = await User.create({
+        email: 'cody@puppybook.com',
+        password: 'bones'
       })
+    })
 
-      it('returns true if the password is correct', () => {
-        expect(cody.correctPassword('bones')).to.be.equal(true)
-      })
+    it('returns true if the password is correct', () => {
+      expect(cody.correctPassword('bones')).to.be.equal(true)
+    })
 
-      it('returns false if the password is incorrect', () => {
-        expect(cody.correctPassword('bonez')).to.be.equal(false)
-      })
-    }) // end describe('correctPassword')
+    it('returns false if the password is incorrect', () => {
+      expect(cody.correctPassword('bonez')).to.be.equal(false)
+    })
+  }) // end describe('correctPassword')
 
+  describe('Associations', () => {
     describe('user associations', () => {
-      it('a user may belong to many spoons', async () => {
-        const spoon1 = await Spoon.create({brand: 'IKEA'})
-        const spoon2 = await Spoon.create({brand: 'Crate&Barrel'})
+      it('a user may have many orders', async () => {
+        const order1 = await Order.create({status: true})
+        const order2 = await Order.create({status: false})
         const user = await User.create({
           email: 'spoons@spoonlover.com',
           spoons: 'ilovespoons'
         })
-        await user.addSpoons([spoon1, spoon2])
-        const userSpoons = await user.getSpoons().map(spoon => spoon.brand)
-        expect(userSpoons).to.deep.equal(['IKEA', 'Crate&Barrel'])
+        await user.addOrders([order1, order2])
+        const userOrders = await user.getOrders().map(order => order.status)
+        expect(userOrders).to.deep.equal([true, false])
       })
     }) // end describe('user associations')
 
     describe('spoon associations', () => {
-      it('a spoon may belong to many users', async () => {
-        const user1 = await User.create({
-          email: 'theperfectspoon@spoonlover.com',
-          spoons: 'spoonsrule'
-        })
-        const user2 = await User.create({
-          email: 's@spoon.com',
-          password: 'heyspoon'
-        })
+      it('a spoon may have many orders', async () => {
+        const order1 = await Order.create({status: true})
+        const order2 = await Order.create({status: false})
         const spoon = await Spoon.create({brand: 'SpoonWorld'})
-        await spoon.addUsers([user1, user2])
-        const spoonUsers = await spoon.getUsers().map(user => user.email)
-        expect(spoonUsers).to.deep.equal([
-          'theperfectspoon@spoonlover.com',
-          's@spoon.com'
-        ])
+        await spoon.addOrders([order1, order2])
+        const spoonOrders = await spoon.getOrders().map(order => order.status)
+        expect(spoonOrders).to.deep.equal([true, false])
       })
     }) // end describe ('spoon associations')
+
+    describe('order associations', () => {
+      it('an order may have many spoons', async () => {
+        const spoon1 = await Spoon.create({brand: 'IKEA'})
+        const spoon2 = await Spoon.create({brand: 'Crate&Barrel'})
+        const order = await Order.create({status: false})
+        await order.addSpoons([spoon1, spoon2])
+        const orderSpoons = await order.getSpoons().map(spoon => spoon.brand)
+        expect(orderSpoons).to.deep.equal(['IKEA', 'Crate&Barrel'])
+      })
+    }) // end describe ('order associations')
   }) // end describe('instanceMethods')
-
-  describe('Seed File', () => {
-    let users, spoons
-    beforeEach(async () => {
-      await seed()
-      users = await User.findAll({include: [Spoon]})
-      spoons = await Spoon.findAll({include: [User]})
-    })
-
-    it('creates at least one user that has no spoons', () => {
-      const usersWithNoSpoons = users
-        .filter(user => !user.spoons.length)
-        .map(user => user.email)
-      expect(usersWithNoSpoons).to.have.lengthOf.above(0)
-    })
-
-    it('creates at least one spoon that has no users', () => {
-      const spoonsWithNoUsers = spoons
-        .filter(spoon => !spoon.users.length)
-        .map(spoon => spoon.brand)
-      expect(spoonsWithNoUsers).to.have.lengthOf.above(0)
-    })
-
-    it('creates at least one user that has several spoons', () => {
-      const userWithManySpoons = users
-        .filter(user => user.spoons.length)
-        .map(user => user.email)
-      expect(userWithManySpoons).to.have.lengthOf.above(0)
-    })
-
-    it('creates at least one spoon that has many users', () => {
-      const spoonsWithManyUsers = spoons
-        .filter(spoon => spoon.users.length)
-        .map(spoon => spoon.brand)
-      expect(spoonsWithManyUsers).to.have.lengthOf.above(0)
-    })
-  })
 }) // end describe('User model')
+
+// const spoon1 = await Spoon.create({brand: 'IKEA'})
+// const spoon2 = await Spoon.create({brand: 'Crate&Barrel'})
