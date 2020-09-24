@@ -8,31 +8,37 @@ const users = [
     id: 1,
     name: 'Karle Moodies',
     address: '756 Spoon Ave',
-    email: 'i_love_spoons@gmail.com'
+    email: 'i_love_spoons@gmail.com',
+    password: '12345'
   },
   {
     id: 2,
     name: 'Cindiaria Tyelsif',
     address: '756 Woodbond Ln',
-    email: 'spoon_fantatic@gmail.com'
+    email: 'spoon_fantatic@gmail.com',
+    password: '12345'
   },
   {
     id: 3,
     name: 'Happy Happiness',
     address: '23448 Neverfield Rd',
-    email: 'crazyspoon@gmail.com'
+    email: 'crazyspoon@gmail.com',
+    password: '12345'
   },
   {
     id: 4,
     name: 'Doing Great Thank you',
     address: '994443 College St',
-    email: 'luv2spoon@gmail.com'
+    email: 'luv2spoon@gmail.com',
+    password: '12345'
   },
   {
     id: 5,
     name: 'Love My Life',
     address: '474 Archway Pk',
-    email: 'iwantspoons@gmail.com'
+    email: 'iwantspoons@gmail.com',
+    password: '12345',
+    isAdmin: true
   }
 ]
 
@@ -218,7 +224,9 @@ const seed = async () => {
         User.create({
           name: user.name,
           address: user.address,
-          email: user.email
+          email: user.email,
+          password: user.password,
+          isAdmin: user.isAdmin
         })
       )
     )
