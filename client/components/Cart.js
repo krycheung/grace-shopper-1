@@ -17,7 +17,7 @@ class Cart extends React.Component {
           <div>
             {cart.spoons.map(spoon => {
               return (
-                <div>
+                <div key={spoon.id}>
                   <div>
                     {spoon.imageUrl ? (
                       <img className="spoon-img" src={spoon.imageUrl} />
@@ -42,7 +42,7 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart
+    cart: state.orders.cart
   }
 }
 

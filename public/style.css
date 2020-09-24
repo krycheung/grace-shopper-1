@@ -34,6 +34,7 @@ form div {
 .spoon-img {
   height: auto;
   width: 200px;
+  border-radius: 10px;
 }
 
 .all-spoons-container {
