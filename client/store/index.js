@@ -6,9 +6,11 @@ import user from './user'
 import allSpoonsReducer from './allSpoonsReducer'
 import singleSpoonReducer from './singleSpoonReducer'
 import ordersReducer from './ordersReducer'
+import allUsersReducer from './allUsersReducer'
 
 const reducer = combineReducers({
   user: user,
+  users: allUsersReducer,
   spoons: allSpoonsReducer,
   singleSpoon: singleSpoonReducer,
   orders: ordersReducer
