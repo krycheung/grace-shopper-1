@@ -3,13 +3,19 @@ import {connect} from 'react-redux'
 import {fetchCart} from '../store/ordersReducer'
 
 class Cart extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   componentDidMount() {
     // where we have a switch case for signed in or not (local state stuff)??
+    console.log('in CART: this.props.user.id', this.props.user.id)
     this.props.getCart(this.props.user.id)
   }
 
   render() {
-    // on update and submit handles, send props.user over in req.body
+    // on update and submit handlers, send props.user.id over in req.body
     let cart = this.props.cart
     return (
       <div>
@@ -43,6 +49,7 @@ class Cart extends React.Component {
 }
 
 const mapState = state => {
+  console.log('@ Cart MapState() state:', {state})
   return {
     cart: state.orders.cart,
     user: state.user
