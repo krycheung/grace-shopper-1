@@ -46,6 +46,7 @@ const spoons = [
   {
     id: 1,
     brand: 'IKEA',
+    name: 'Ajaaka',
     material: 'Stainless Steel',
     category: 'Dining',
     description: 'Your standard spoon',
@@ -56,6 +57,7 @@ const spoons = [
   {
     id: 2,
     brand: 'Falalala',
+    name: 'Lamp',
     material: 'Plastic',
     category: 'Dining',
     description: 'You definitely want one',
@@ -66,6 +68,7 @@ const spoons = [
   {
     id: 3,
     brand: 'Ceramica',
+    name: 'Sawdust',
     material: 'Ceramic',
     category: 'Dining',
     description: 'Handmade ceramic dining spoon.',
@@ -76,6 +79,7 @@ const spoons = [
   {
     id: 4,
     brand: 'Crusty',
+    name: 'Spoonerism',
     material: 'Stainless Steel',
     category: 'Kitchen',
     description: 'Big scooping spoon',
@@ -86,6 +90,7 @@ const spoons = [
   {
     id: 5,
     brand: 'Square',
+    name: 'Noam Spoonsky',
     material: 'Stainless Steel',
     category: 'Kitchen',
     description: 'A spoon and a shovel',
@@ -96,6 +101,7 @@ const spoons = [
   {
     id: 6,
     brand: 'Milk bar',
+    name: 'Milky baby',
     material: 'Copper',
     category: 'Dessert',
     description: 'Fancy ice cream spoon',
@@ -106,6 +112,7 @@ const spoons = [
   {
     id: 7,
     brand: 'Ladelmate',
+    name: 'Soup genius',
     material: 'Silicone',
     category: 'Soup',
     description: 'Big spoon for like soup and stuff',
@@ -116,6 +123,7 @@ const spoons = [
   {
     id: 8,
     brand: 'Sporker',
+    name: 'Sporky the pig',
     material: 'Stainless Steel',
     category: 'Travel',
     description: 'Dual edged utensil for scooping or sticking',
@@ -126,6 +134,7 @@ const spoons = [
   {
     id: 9,
     brand: 'Matchaful',
+    name: 'Cottage culture',
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Perfect portions for matcha and tea',
@@ -136,6 +145,7 @@ const spoons = [
   {
     id: 10,
     brand: 'SLX',
+    name: 'Netti',
     material: 'Stainless Steel',
     category: 'Slotted',
     description: 'You know, so you can strain what you are scooping',
@@ -145,6 +155,7 @@ const spoons = [
   {
     id: 11,
     brand: 'Fishpond',
+    name: 'Siren',
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Mermaid machiatto spoon!',
@@ -154,6 +165,7 @@ const spoons = [
   {
     id: 12,
     brand: 'Baromone',
+    name: 'Bar-bara',
     material: 'Stainless steel',
     category: 'Restaraunt',
     description: 'Threaded bar spoon for all of your cocktail hours',
@@ -164,6 +176,7 @@ const spoons = [
   {
     id: 13,
     brand: 'Star',
+    name: 'Spoon Lightyear',
     material: 'Stainless Steel',
     category: 'Novelty',
     description: 'Beat your cat to polluting your beverages with this spoon!',
@@ -174,6 +187,7 @@ const spoons = [
   {
     id: 14,
     brand: 'Joom',
+    name: 'Bloom',
     material: 'Stainless Steel',
     category: 'Barista',
     description: 'Gold, stainless steel coffee spoon',
@@ -184,6 +198,7 @@ const spoons = [
   {
     id: 15,
     brand: 'Webstaraunt',
+    name: 'Splinter',
     material: 'Wood',
     category: 'Kitchen',
     description: 'If grandma has it in her hand, run!',
@@ -236,6 +251,7 @@ const seed = async () => {
         Spoon.create({
           id: spoon.id,
           brand: spoon.brand,
+          name: spoon.name,
           material: spoon.material,
           category: spoon.category,
           description: spoon.description,

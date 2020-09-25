@@ -10,6 +10,9 @@ const Spoon = db.define('spoons', {
       notEmpty: true
     }
   },
+  name: {
+    type: Sequelize.STRING
+  },
   material: {
     type: Sequelize.STRING,
     // allowNull: false,
