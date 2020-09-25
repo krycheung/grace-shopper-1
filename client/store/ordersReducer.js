@@ -33,7 +33,15 @@ export const fetchCart = userId => {
       //console.log({cart})
       dispatch(getCart(cart)) // {cart} is same as an instance from Order table. Rignt now just Id, status & userId
     } catch (err) {
-      console.error(err)
+      try {
+        const madeCartResponse = await axios.post('/api/orders/cart', {
+          userId: userId
+        })
+        const cart = madeCartResponse.data
+        dispatch(getCart(cart))
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }

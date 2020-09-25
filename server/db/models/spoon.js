@@ -27,7 +27,10 @@ const Spoon = db.define('spoons', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    get() {
+      return this.getDataValue('price') / 100
+    }
   },
   imageUrl: {
     type: Sequelize.STRING,
