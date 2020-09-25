@@ -2,10 +2,30 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSpoons} from '../store/allSpoonsReducer'
 import {Link} from 'react-router-dom'
+import {ProductForm} from './adminAddProduct'
 
 class AllSpoons extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      adminControl: false
+    }
+    this.adminEdits = this.adminEdits.bind(this)
+  }
+  adminEdits() {
+    if (this.props.user.isAdmin) {
+      this.setState({
+        adminControl: true
+      })
+    } else {
+      this.setState({
+        adminControl: false
+      })
+    }
+  }
   componentDidMount() {
     this.props.getSpoons()
+    this.adminEdits()
   }
 
   getSpoonRoute(id) {
@@ -13,8 +33,10 @@ class AllSpoons extends React.Component {
   }
 
   render() {
+    const {adminControl} = this.state
     return (
       <div>
+        {adminControl && <ProductForm />}
         <h1>All Spoons</h1>
         <div className="all-spoons-container">
           {this.props.spoons.length ? (
@@ -31,6 +53,7 @@ class AllSpoons extends React.Component {
                     </div>
                     <p>Price: ${spoon.price}</p>
                     <p>By {spoon.brand}</p>
+                    <p>The {spoon.name}</p>
                     <p>Material: {spoon.material}</p>
                     <p>Description: {spoon.description}</p>
                   </Link>
@@ -48,7 +71,8 @@ class AllSpoons extends React.Component {
 
 const mapState = state => {
   return {
-    spoons: state.spoons
+    spoons: state.spoons,
+    user: state.user
   }
 }
 
