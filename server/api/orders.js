@@ -1,22 +1,29 @@
 const router = require('express').Router()
 const {User, Spoon, Order, SPOON_ORDER} = require('../db/models')
 
-router.get('/cart', async (req, res, next) => {
-  const userId = req.body.userId
+router.put('/cart', async (req, res, next) => {
+  let currentCart
   try {
-    let hasCart = await Order.findOne({
+    await Order.findOrCreate({
       where: {
-        userId: userId,
+        userId: req.body.userId,
         status: false
       }
     })
-    res.json(hasCart)
+    currentCart = await Order.findOne({
+      where: {
+        userId: req.body.userId,
+        status: false
+      },
+      include: Spoon
+    })
+    res.json(currentCart)
   } catch (err) {
     next(err)
   }
 })
 
-router.post('/cart', async (req, res, next) => {
+router.get('/history', async (req, res, next) => {
   const userId = req.body.userId
   try {
     let newCart = await Order.create({userId: userId})
@@ -25,19 +32,5 @@ router.post('/cart', async (req, res, next) => {
     next(err)
   }
 })
-
-// add first thing, start an order instance
-// router.put('/', async (req, res, next) => { // info in req.body
-
-//     }
-//      currentOrder.addSpoon()
-
-//     // check in db for order { where: userId is user, status: false, if none, create instatnce
-
-//   } catch(err) {
-//     console.error(err)
-//     next(err)
-//   }
-// })
 
 module.exports = router

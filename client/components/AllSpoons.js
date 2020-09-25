@@ -70,6 +70,7 @@ class AllSpoons extends React.Component {
 }
 
 const mapState = state => {
+  console.log('@ AllSpoons MapState() state:', {state})
   return {
     spoons: state.spoons,
     user: state.user
