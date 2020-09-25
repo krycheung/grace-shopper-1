@@ -5,6 +5,10 @@ const Order = db.define('orders', {
   status: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  dateCreated: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
   }
 })
 

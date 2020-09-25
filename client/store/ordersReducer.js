@@ -39,8 +39,8 @@ export const fetchCart = (userId = 2) => {
         })
         const cart = madeCartResponse.data
         dispatch(getCart(cart))
-      } catch (err) {
-        console.error(err)
+      } catch (error) {
+        console.error(error)
       }
     }
   }
