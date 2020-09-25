@@ -12,6 +12,16 @@ router.get('/', async (req, res, next) => {
   res.json(spoons)
 })
 
+router.post('/', async (req, res, next) => {
+  let spoon
+  try {
+    spoon = await Spoon.create(req.body)
+  } catch (err) {
+    next(err)
+  }
+  res.json(spoon)
+})
+
 router.get('/:id', async (req, res, next) => {
   const spoonId = req.params.id
   try {
