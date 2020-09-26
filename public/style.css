@@ -37,9 +37,23 @@ form div {
   border-radius: 10px;
 }
 
+.spoon-img-thumbnail {
+  height: auto;
+  width: 75px;
+  border-radius: 10px;
+  margin: 20px;
+}
+
 .all-spoons-container {
   display: flex;
   flex-flow: wrap;
   align-items: flex-end;
   justify-content: space-between;
+}
+
+.history-spoons-container {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  align-items: flex-start;
 }

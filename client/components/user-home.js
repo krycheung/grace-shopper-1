@@ -19,7 +19,6 @@ export const UserHome = props => {
  * CONTAINER
  */
 const mapState = state => {
-  console.log('@ User-Home MapState() state:', {state})
   return {
     email: state.user.email
   }
