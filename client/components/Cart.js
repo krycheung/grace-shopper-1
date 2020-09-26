@@ -18,7 +18,6 @@ class Cart extends React.Component {
   render() {
     let cart = this.props.cart
     let history = this.props.history
-    console.log({history})
     return (
       <div>
         <div>
