@@ -16,7 +16,7 @@ export const getCart = cart => ({
 export const fetchOrders = () => {
   return async dispatch => {
     try {
-      const response = await axios.get('/api/history') //{ userId }
+      const response = await axios.get('/api/orders/history')
       const orders = await response.data
       dispatch(getOrders(orders))
     } catch (err) {
@@ -25,13 +25,12 @@ export const fetchOrders = () => {
   }
 }
 
-export const fetchCart = userId => {
+export const fetchCart = () => {
   return async dispatch => {
     try {
-      const foundCartResponse = await axios.put('/api/orders/cart', {userId})
+      const foundCartResponse = await axios.get('/api/orders/cart')
       const cart = foundCartResponse.data
-      //console.log({cart})
-      dispatch(getCart(cart)) // {cart} is same as an instance from Order table. Rignt now just Id, status & userId
+      dispatch(getCart(cart))
     } catch (err) {
       console.error(err)
     }

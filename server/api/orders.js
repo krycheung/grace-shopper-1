@@ -1,18 +1,18 @@
 const router = require('express').Router()
 const {User, Spoon, Order, SPOON_ORDER} = require('../db/models')
 
-router.put('/cart', async (req, res, next) => {
+router.get('/cart', async (req, res, next) => {
   let currentCart
   try {
     await Order.findOrCreate({
       where: {
-        userId: req.body.userId,
+        userId: req.user.id,
         status: false
       }
     })
     currentCart = await Order.findOne({
       where: {
-        userId: req.body.userId,
+        userId: req.user.id,
         status: false
       },
       include: Spoon
@@ -24,10 +24,17 @@ router.put('/cart', async (req, res, next) => {
 })
 
 router.get('/history', async (req, res, next) => {
-  const userId = req.body.userId
+  console.log('@ api/history req.user.id:', req.user.id)
+  //const userId = req.body.userId
   try {
-    let newCart = await Order.create({userId: userId})
-    res.json(newCart)
+    let historyResponse = await Order.findAll({
+      where: {
+        userId: req.user.id,
+        status: true
+      },
+      include: Spoon
+    })
+    res.json(historyResponse)
   } catch (err) {
     next(err)
   }
