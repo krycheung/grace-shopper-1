@@ -1,11 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, fetchOrders} from '../store/ordersReducer'
+import {fetchCart, fetchOrders, removeItem} from '../store/ordersReducer'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidMount() {
@@ -13,6 +15,10 @@ class Cart extends React.Component {
 
     this.props.getCart()
     this.props.getHistory()
+  }
+
+  handleRemove(e) {
+    this.props.removeItem(e.target.value)
   }
 
   render() {
@@ -36,7 +42,13 @@ class Cart extends React.Component {
                       )}
                     </div>
                     <p>Price: ${spoon.price}</p>
-                    <button type="button">Remove Item</button>
+                    <button
+                      onClick={this.handleRemove}
+                      value={spoon.id}
+                      type="button"
+                    >
+                      Remove Item
+                    </button>
                   </div>
                 )
               })}
@@ -90,7 +102,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchCart()),
-    getHistory: () => dispatch(fetchOrders())
+    getHistory: () => dispatch(fetchOrders()),
+    removeItem: itemId => dispatch(removeItem(itemId))
   }
 }
 
