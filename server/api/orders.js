@@ -23,9 +23,8 @@ router.get('/cart', async (req, res, next) => {
   }
 })
 
+// THIS WORKS GREAT:
 router.get('/history', async (req, res, next) => {
-  console.log('@ api/history req.user.id:', req.user.id)
-  //const userId = req.body.userId
   try {
     let historyResponse = await Order.findAll({
       where: {
@@ -35,6 +34,37 @@ router.get('/history', async (req, res, next) => {
       include: Spoon
     })
     res.json(historyResponse)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// THIS DOESN'T WORK YET:
+router.delete('/:itemId', async (req, res, next) => {
+  console.log('@ router.delete THIS IS req.params: ', req.params)
+  try {
+    let currentCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      }
+    })
+
+    //what if we findbyPk, on Spoon, remove Order, but
+    // prob same exact challenges.
+    currentCart.removeSpoon({
+      where: {
+        spoonId: req.params.itemId
+      }
+    })
+    const updatedCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      },
+      include: Spoon
+    })
+    res.json(updatedCart)
   } catch (err) {
     next(err)
   }

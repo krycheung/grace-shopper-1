@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const GET_ORDERS = 'GET_ORDERS'
 export const GET_CART = 'GET_CART'
+// export const REMOVE_ITEM = 'REMOVE_ITEM'
 
 export const getOrders = orders => ({
   type: GET_ORDERS,
@@ -12,6 +13,11 @@ export const getCart = cart => ({
   type: GET_CART,
   cart
 })
+
+// export const remove = itemId => ({
+//   type: REMOVE_ITEM,
+//   itemId
+// })
 
 export const fetchOrders = () => {
   return async dispatch => {
@@ -30,6 +36,18 @@ export const fetchCart = () => {
     try {
       const foundCartResponse = await axios.get('/api/orders/cart')
       const cart = foundCartResponse.data
+      dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export const removeItem = itemId => {
+  return async dispatch => {
+    try {
+      const updatedCartResponse = await axios.delete(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
       dispatch(getCart(cart))
     } catch (err) {
       console.error(err)
