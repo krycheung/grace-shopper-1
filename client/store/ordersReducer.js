@@ -81,8 +81,8 @@ export default function(state = initialState, action) {
       return {...state, orders: action.orders}
     case GET_CART:
       return {...state, cart: action.cart}
-    case ADD_TO_CART:
-      return {...state, cart: {...spoons, spoons: action.item}}
+    // case ADD_TO_CART:
+    //   return {...state, cart: {...spoons, spoons: action.item}}
     default:
       return state
   }
