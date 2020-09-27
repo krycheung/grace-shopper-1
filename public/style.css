@@ -57,3 +57,52 @@ form div {
   flex-direction: row;
   align-items: flex-start;
 }
+
+.sideby {
+  align-items: top;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+}
+
+.fatterSide {
+  width: 60%;
+}
+
+.halfWidth {
+  width: 50%;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.smLeftMargin {
+  margin-left: 1em;
+}
+
+.medLeftMargin {
+  margin-left: 5em;
+}
+
+.largeRightMargin {
+  margin-right: 10em;
+}
+
+.space {
+  margin: 2px;
+}
+
+.bottomMargin {
+  margin-bottom: 40px;
+}
+
+.justifySelfRight {
+  justify-self: flex-end;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.row {
+  flex-direction: row;
+}
