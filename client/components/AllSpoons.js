@@ -54,8 +54,6 @@ class AllSpoons extends React.Component {
                     <p>Price: ${spoon.price}</p>
                     <p>By {spoon.brand}</p>
                     <p>The {spoon.name}</p>
-                    <p>Material: {spoon.material}</p>
-                    <p>Description: {spoon.description}</p>
                   </Link>
                 </div>
               )
