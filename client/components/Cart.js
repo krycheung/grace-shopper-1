@@ -25,15 +25,15 @@ class Cart extends React.Component {
     let cart = this.props.cart
     let history = this.props.history
     return (
-      <div>
-        <div>
+      <div className="sideby">
+        <div className="halfWidth medLeftMargin">
           <h1>Cart</h1>
           <h4>You have {cart.spoons.length} in your cart.</h4>
           {cart.spoons.length ? (
             <div>
               {cart.spoons.map(spoon => {
                 return (
-                  <div key={spoon.id}>
+                  <div key={spoon.id} className="bottomMargin">
                     <div>
                       {spoon.imageUrl ? (
                         <img className="spoon-img" src={spoon.imageUrl} />
@@ -45,6 +45,7 @@ class Cart extends React.Component {
                     <p>Name: {spoon.name}</p>
                     <p>Price: ${spoon.price}</p>
                     <button
+                      className="space"
                       onClick={this.handleRemove}
                       value={spoon.id}
                       type="button"
@@ -54,13 +55,17 @@ class Cart extends React.Component {
                   </div>
                 )
               })}
-              <button type="submit">Checkout</button>
+              <div className="justifySelfRight row">
+                <button className="largeRightMargin" type="submit">
+                  Checkout
+                </button>
+              </div>
             </div>
           ) : (
             <h4>Your cart is empty!</h4>
           )}
         </div>
-        <div>
+        <div className="halfWidth smLeftMargin">
           <h2>Order History</h2>
           {history.map(order => {
             return (
