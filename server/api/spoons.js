@@ -13,9 +13,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  let spoon
   try {
-    spoon = await Spoon.create(req.body)
+    const spoon = await Spoon.create(req.body)
   } catch (err) {
     next(err)
   }

@@ -39,7 +39,26 @@ router.get('/history', async (req, res, next) => {
   }
 })
 
+router.post('/:itemId', async (req, res, next) => {
+  try {
+    let currentCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      }
+    })
+
+    SPOON_ORDER.create({
+      orderId: currentCart.dataValues.id,
+      spoonId: req.params.itemId
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
 // THIS DOESN'T WORK YET:
+// do we need /:itemId in route or just /cart?
 router.delete('/:itemId', async (req, res, next) => {
   console.log('@ router.delete THIS IS req.params: ', req.params)
   try {
@@ -50,11 +69,18 @@ router.delete('/:itemId', async (req, res, next) => {
       }
     })
 
+    // let currentOrder = await SPOON_ORDER.findAll({
+    //   where: {
+    //     orderId: currentCart.dataValues.id,
+    //   },
+    // })
+
     //what if we findbyPk, on Spoon, remove Order, but
     // prob same exact challenges.
-    currentCart.removeSpoon({
+    SPOON_ORDER.destroy({
       where: {
-        spoonId: req.params.itemId
+        spoonId: req.params.itemId,
+        orderId: currentCart.dataValues.id
       }
     })
     const updatedCart = await Order.findOne({

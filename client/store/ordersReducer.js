@@ -3,6 +3,7 @@ import axios from 'axios'
 export const GET_ORDERS = 'GET_ORDERS'
 export const GET_CART = 'GET_CART'
 // export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const ADD_TO_CART = 'ADD_TO_CART'
 
 export const getOrders = orders => ({
   type: GET_ORDERS,
@@ -11,6 +12,11 @@ export const getOrders = orders => ({
 
 export const getCart = cart => ({
   type: GET_CART,
+  cart
+})
+
+export const addToCart = cart => ({
+  type: ADD_TO_CART,
   cart
 })
 
@@ -43,6 +49,18 @@ export const fetchCart = () => {
   }
 }
 
+export const addToCartThunk = itemId => {
+  return async dispatch => {
+    try {
+      const updatedCartResponse = await axios.post(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
+      dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const removeItem = itemId => {
   return async dispatch => {
     try {
@@ -63,6 +81,8 @@ export default function(state = initialState, action) {
       return {...state, orders: action.orders}
     case GET_CART:
       return {...state, cart: action.cart}
+    // case ADD_TO_CART:
+    //   return {...state, cart: {...spoons, spoons: action.item}}
     default:
       return state
   }
