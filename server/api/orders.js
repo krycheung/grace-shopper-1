@@ -39,6 +39,7 @@ router.get('/history', async (req, res, next) => {
   }
 })
 
+// Add an item to cart
 router.post('/:itemId', async (req, res, next) => {
   try {
     let currentCart = await Order.findOne({
@@ -51,6 +52,7 @@ router.post('/:itemId', async (req, res, next) => {
     SPOON_ORDER.create({
       orderId: currentCart.dataValues.id,
       spoonId: req.params.itemId
+      ///quantity: 7 this will work, if we want to add this to options in singleview.
     })
   } catch (err) {
     next(err)
@@ -74,10 +76,40 @@ router.put('/checkout', async (req, res, next) => {
   }
 })
 
-//router.put('/:itemId', ) // FOR update Quantity
+// FOR update Quantity
+router.put('/:itemId', async (req, res, next) => {
+  console.log('@ /put for Update Quantity, req.body', req.body)
+  try {
+    let currentCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      }
+    })
 
-// THIS DOESN'T WORK YET:
-// do we need /:itemId in route or just /cart?
+    let currentLineItem = await SPOON_ORDER.findOne({
+      where: {
+        orderId: currentCart.dataValues.id,
+        spoonId: req.params.itemId
+      }
+    })
+    currentLineItem.quantity = req.body.quantity // params if thats where we send it on.
+    await currentLineItem.save()
+
+    const updatedCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      },
+      include: Spoon
+    })
+    res.json(updatedCart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Yes, /:itemId needed, used to locate instance in destroy call.
 router.delete('/:itemId', async (req, res, next) => {
   console.log('@ router.delete THIS IS req.params: ', req.params)
   try {
