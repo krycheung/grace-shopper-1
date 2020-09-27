@@ -56,6 +56,7 @@ const brands = [
   'Webstaraunt',
   'Spoontacular'
 ]
+
 const nameWords = [
   'Blue',
   'Spoon',
@@ -79,8 +80,28 @@ const nameWords = [
   'Well',
   'Scooper',
   'Fairy',
-  'Sporty'
+  'Sporty',
+  'Funky',
+  'Spoony',
+  'Spoonerism',
+  'Ladle',
+  'Soup',
+  'Rounded',
+  'Scoop',
+  'Stir',
+  'Serve',
+  'Carver'
 ]
+
+function generateRandomName(nameArr) {
+  let name = ''
+  let finish = Math.ceil(Math.random() * 3)
+  for (let i = 0; i < finish; i++) {
+    name += `${nameArr[Math.floor(Math.random() * nameArr.length)]} `
+  }
+  return name
+}
+
 const materials = [
   'Plastic',
   'Stainless Steel',
@@ -89,6 +110,7 @@ const materials = [
   'Silicone',
   'Wood'
 ]
+
 const categories = [
   'Dining',
   'Kitchen',
@@ -99,6 +121,23 @@ const categories = [
   'Slotted',
   'Restaurant',
   'Novelty'
+]
+
+const imageUrls = [
+  'https://images.replacements.com/cdn-cgi/image/format=auto,width=555px/https://images.replacements.com/images/images1/flatware/I/P0000339625S0011T1.jpg',
+  'https://www.davidstea.com/dw/image/v2/BBXZ_PRD/on/demandware.static/-/Sites-davidstea-master-catalog/default/dw16c1edcd/productimages/901969DT01VAR0039908-901969US01VAR0040346-BI-1.jpg?sw=450&sh=450&sm=fit',
+  'https://cdn.shopify.com/s/files/1/0552/3117/products/bspink.jpg?v=1571439120',
+  'https://img.joomcdn.net/34b8d54a59862d4214e60ed770327086ddd3ca4c_400_400.jpeg',
+  'https://ae01.alicdn.com/kf/H59e205ec163a48b68f146a08572add4a8/Stainless-Steel-Spoon-Gifts-Beautiful-Korean-Spoon-Long-Handle-Spoon-Stir-Drinking-Home-Kitchen-Dessert-Milk.jpeg',
+  'https://i2.wp.com/ae01.alicdn.com/kf/HLB1qw1GX5frK1RjSspbxh74pFXau/1pcs-Thicken-Stainless-Steel-Long-Handle-Ladle-Spoon-Big-Soup-Ladle-Useful-Kitchen-Cooking-Tool-Utensil.jpeg?fit=600%2C600&ssl=1',
+  'https://cdn.chv.me/images/thumbnails/Stainless-Steel-Spoon-Fork-ZtLv5AXw.jpeg.thumb_800x800.jpg',
+  'https://cdn.shopify.com/s/files/1/0898/3392/products/31X_2BDxVW3CL_1080x.jpeg?v=1449438395',
+  'https://www.slx-hospitality.com/app/uploads/2016/09/53481.jpeg',
+  'https://cdn-o.fishpond.com/0192/320/731/869833523/original.jpeg',
+  'https://cdnimg.webstaurantstore.com/images/products/extra_large/525451/1951622.jpg',
+  'https://cdn.shopify.com/s/files/1/0384/9722/2787/products/product-image-1321668478_530x@2x.jpg?v=1586858573',
+  'https://img.joomcdn.net/99aa39d5b31f6ce65d1f6d1b94a1dcbe7145bab1_original.jpeg',
+  'https://www.zoro.com/static/cms/product/full/Z30O-xfo5oy.JPG'
 ]
 
 const spoons = [
@@ -293,7 +332,6 @@ const seed = async () => {
     const spoonInfo = await Promise.all(
       spoons.map(spoon =>
         Spoon.create({
-          id: spoon.id,
           brand: spoon.brand,
           name: spoon.name,
           material: spoon.material,
@@ -312,6 +350,18 @@ const seed = async () => {
         })
       )
     )
+
+    for (let i = 0; i < 85; i++) {
+      await Spoon.create({
+        brand: brands[Math.floor(Math.random() * brands.length)],
+        name: generateRandomName(nameWords),
+        material: materials[Math.floor(Math.random() * materials.length)],
+        category: categories[Math.floor(Math.random() * categories.length)],
+        description: 'A very useful spoon',
+        price: Math.floor(Math.random() * 5000),
+        imageUrl: imageUrls[Math.floor(Math.random() * imageUrls.length)]
+      })
+    }
 
     await fakeOrder[0].addSpoon(spoonInfo[0], {through: {quantity: 4}})
     await fakeOrder[0].addSpoon(spoonInfo[8], {through: {quantity: 5}})
