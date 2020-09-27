@@ -72,6 +72,18 @@ export const removeItem = itemId => {
     }
   }
 }
+// or two params
+export const updateItem = itemInfoObject => {
+  return async dispatch => {
+    try {
+      const updatedCartResponse = await axios.put(`/api/orders/${itemId}`) // add req.body {quantity}
+      const cart = updatedCartResponse.data
+      dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 
 const initialState = {orders: [], cart: {spoons: []}}
 

@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, fetchOrders, removeItem} from '../store/ordersReducer'
+import {
+  fetchCart,
+  fetchOrders,
+  removeItem,
+  updateItem
+} from '../store/ordersReducer'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -8,6 +13,7 @@ class Cart extends React.Component {
     this.state = {}
 
     this.handleRemove = this.handleRemove.bind(this)
+    this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -19,6 +25,11 @@ class Cart extends React.Component {
 
   handleRemove(e) {
     this.props.removeItem(e.target.value)
+  }
+
+  handleUpdateQuantity(e) {
+    // get info off state
+    this.props.updateItem(e.target.value)
   }
 
   render() {
@@ -44,6 +55,9 @@ class Cart extends React.Component {
                     <p>Brand: {spoon.brand}</p>
                     <p>Name: {spoon.name}</p>
                     <p>Price: ${spoon.price}</p>
+
+                    {/* and/or set state to hold new quantity num. 
+                  CAN the value={stuff}  on change quantity button be an object that has {itemID, NewQuantity}  */}
                     <button
                       className="space"
                       onClick={this.handleRemove}
@@ -110,7 +124,9 @@ const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchCart()),
     getHistory: () => dispatch(fetchOrders()),
-    removeItem: itemId => dispatch(removeItem(itemId))
+    removeItem: itemId => dispatch(removeItem(itemId)),
+    // CAN WE SEND AN OBJECT: {itemID, NewQuantity} ??
+    updateItem: iteminfoObj => dispatch(updateItem(iteminfoObj))
   }
 }
 
