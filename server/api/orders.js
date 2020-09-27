@@ -57,6 +57,25 @@ router.post('/:itemId', async (req, res, next) => {
   }
 })
 
+// For submitting an order.
+router.put('/checkout', async (req, res, next) => {
+  try {
+    let currentCart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: false
+      }
+    })
+    currentCart.status = true
+    currentCart.save()
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//router.put('/:itemId', ) // FOR update Quantity
+
 // THIS DOESN'T WORK YET:
 // do we need /:itemId in route or just /cart?
 router.delete('/:itemId', async (req, res, next) => {
