@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const GET_ORDERS = 'GET_ORDERS'
 export const GET_CART = 'GET_CART'
+// export const REMOVE_ITEM = 'REMOVE_ITEM'
 export const ADD_TO_CART = 'ADD_TO_CART'
 
 export const getOrders = orders => ({
@@ -14,10 +15,15 @@ export const getCart = cart => ({
   cart
 })
 
-export const addSpoonToCart = cart => ({
+export const addToCart = cart => ({
   type: ADD_TO_CART,
   cart
 })
+
+// export const remove = itemId => ({
+//   type: REMOVE_ITEM,
+//   itemId
+// })
 
 export const fetchOrders = () => {
   return async dispatch => {
@@ -43,13 +49,24 @@ export const fetchCart = () => {
   }
 }
 
-export const addToCart = spoonId => {
-  console.log(spoonId)
+export const addToCartThunk = itemId => {
   return async dispatch => {
     try {
-      const addItem = await axios.post('/api/orders/cart', spoonId)
-      const cartItem = addItem.data
-      dispatch(addSpoonToCart(cartItem, spoonId))
+      const updatedCartResponse = await axios.post(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
+      dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
+export const removeItem = itemId => {
+  return async dispatch => {
+    try {
+      const updatedCartResponse = await axios.delete(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
+      dispatch(getCart(cart))
     } catch (err) {
       console.error(err)
     }

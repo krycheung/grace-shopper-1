@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {getSingleSpoonThunk} from '../store/singleSpoonReducer'
-import {addToCart} from '../store/ordersReducer'
+import {addToCartThunk} from '../store/ordersReducer'
 import {connect} from 'react-redux'
 
 export class SingleSpoon extends Component {
@@ -43,7 +43,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => ({
   gotSingleSpoon: id => dispatch(getSingleSpoonThunk(id)),
-  addToCart: spoonId => dispatch(addToCart(spoonId))
+  addToCart: spoonId => dispatch(addToCartThunk(spoonId))
 })
 
 export default connect(mapState, mapDispatch)(SingleSpoon)

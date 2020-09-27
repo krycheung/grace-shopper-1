@@ -318,6 +318,11 @@ const seed = async () => {
     await fakeOrder[0].addSpoon(spoonInfo[7], {through: {quantity: 19}})
     await fakeOrder[0].addSpoon(spoonInfo[6], {through: {quantity: 13}})
     await fakeOrder[2].addSpoon(spoonInfo[3], {through: {quantity: 3}})
+    await fakeOrder[0].addSpoon(spoonInfo[11], {through: {quantity: 4}})
+    await fakeOrder[0].addSpoon(spoonInfo[12], {through: {quantity: 4}})
+    await fakeOrder[1].addSpoon(spoonInfo[5], {through: {quantity: 4}})
+    await fakeOrder[2].addSpoon(spoonInfo[5], {through: {quantity: 4}})
+    await fakeOrder[3].addSpoon(spoonInfo[5], {through: {quantity: 4}})
 
     // seed your database here!
   } catch (err) {
