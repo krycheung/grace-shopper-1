@@ -36,6 +36,7 @@ class Cart extends React.Component {
                       )}
                     </div>
                     <p>Price: ${spoon.price}</p>
+                    <button type="button">Update Cart</button>
                     <button type="button">Remove Item</button>
                   </div>
                 )
