@@ -43,17 +43,17 @@ class CheckoutForm extends React.Component {
             <div>
               <h4>Shipping Information</h4>
               <label htmlFor="name">Name</label>
-              <input type="text" name="name" placeHolder="Enter name here" />
+              <input type="text" name="name" placeholder="Enter name here" />
               <label htmlFor="address">Address</label>
               <input
                 type="text"
                 name="address"
-                placeHolder="Enter address here"
+                placeholder="Enter address here"
               />
               <label htmlFor="address2">Address Line 2 (optional)</label>
-              <input type="text" name="address2" placeHolder="Ex: Apt 5C" />
+              <input type="text" name="address2" placeholder="Ex: Apt 5C" />
               <label htmlFor="city">City</label>
-              <input type="text" name="city" placeHolder="Enter city here" />
+              <input type="text" name="city" placeholder="Enter city here" />
               <label htmlFor="state">State</label>
               <select>
                 <option value="AL">Alabama</option>
@@ -109,7 +109,7 @@ class CheckoutForm extends React.Component {
                 <option value="WY">Wyoming</option>
               </select>
               <label htmlFor="zip">ZipCode</label>
-              <input type="text" name="zip" placeHolder="Enter ZipCode here" />
+              <input type="text" name="zip" placeholder="Enter ZipCode here" />
               <hr />
               <ContactAndPayment />
             </div>

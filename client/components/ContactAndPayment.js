@@ -4,11 +4,11 @@ export default function ContactAndPayment() {
   return (
     <div>
       <label htmlFor="phone">Contact</label>
-      <input type="text" name="phone" placeHolder="Enter phone # here" />
+      <input type="text" name="phone" placeholder="Enter phone # here" />
       <hr />
       <h4>Payment Information</h4>
       <label htmlFor="nameOnCard">Name Of Cardholder</label>
-      <input type="text" name="nameOnCard" placeHolder="Cardholder name" />
+      <input type="text" name="nameOnCard" placeholder="Cardholder name" />
       <input
         className="inputCard"
         type="text"
@@ -40,7 +40,7 @@ export default function ContactAndPayment() {
       Card Expiry:
       <input className="inputCard" type="text" name="expiry" id="expiry" />
       <label htmlFor="cvc">CVC</label>
-      <input type="text" name="cvc" placeHolder="CVC" />
+      <input type="text" name="cvc" placeholder="CVC" />
     </div>
   )
 }
