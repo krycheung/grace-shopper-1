@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchSpoons} from '../store/allSpoonsReducer'
+import {fetchSpoons, deleteSpoonThunk} from '../store/allSpoonsReducer'
 import {Link} from 'react-router-dom'
 import {ProductForm} from './adminAddProduct'
 
@@ -11,8 +11,10 @@ class AllSpoons extends React.Component {
       adminControl: false
     }
     this.adminEdits = this.adminEdits.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
   adminEdits() {
+    console.log('in allspoons:', this.props)
     if (this.props.user.isAdmin) {
       this.setState({
         adminControl: true
@@ -55,6 +57,15 @@ class AllSpoons extends React.Component {
                     <p>By {spoon.brand}</p>
                     <p>The {spoon.name}</p>
                   </Link>
+                  {adminControl ? (
+                    <button
+                      onClick={() => {
+                        this.props.deleteSpoon(spoon.id)
+                      }}
+                    >
+                      Delete Item
+                    </button>
+                  ) : null}
                 </div>
               )
             })
@@ -76,7 +87,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getSpoons: () => dispatch(fetchSpoons())
+    getSpoons: () => dispatch(fetchSpoons()),
+    deleteSpoon: id => dispatch(deleteSpoonThunk(id))
   }
 }
 
