@@ -41,6 +41,8 @@ class Cart extends React.Component {
                         <h2>No image</h2>
                       )}
                     </div>
+                    <p>Brand: {spoon.brand}</p>
+                    <p>Name: {spoon.name}</p>
                     <p>Price: ${spoon.price}</p>
                     <button
                       onClick={this.handleRemove}

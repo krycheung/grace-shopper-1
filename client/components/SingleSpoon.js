@@ -27,8 +27,10 @@ export class SingleSpoon extends Component {
       <div>
         <h1>By: {singleSpoon.brand}</h1>
         <img src={singleSpoon.imageUrl} />
+        <h3>Name: {singleSpoon.name}</h3>
         <h3>Description: {singleSpoon.description}</h3>
         <h2>Material: {singleSpoon.material}</h2>
+        <h3>Price: {singleSpoon.price}</h3>
         <button onClick={this.handleSubmit}>Add To Cart</button>
       </div>
     )
