@@ -9,7 +9,8 @@ import {
   AllSpoons,
   SingleSpoon,
   Cart,
-  AllUsers
+  AllUsers,
+  CheckoutForm
 } from './components'
 import {me} from './store'
 
@@ -32,6 +33,7 @@ class Routes extends Component {
         <Route path="/spoons/:spoonId" component={SingleSpoon} />
         <Route path="/spoons" component={AllSpoons} />
         <Route path="/cart" component={Cart} />
+        <Route path="/checkoutform" component={CheckoutForm} />
         <Route path="/users" component={AllUsers} />
         {isLoggedIn && (
           <Switch>
