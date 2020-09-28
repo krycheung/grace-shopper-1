@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchSpoons} from '../store/allSpoonsReducer'
+import {fetchSpoons, deleteSpoonThunk} from '../store/allSpoonsReducer'
 import {Link} from 'react-router-dom'
 import {ProductForm} from './adminAddProduct'
 
@@ -55,6 +55,16 @@ class AllSpoons extends React.Component {
                     <p>By {spoon.brand}</p>
                     <p>The {spoon.name}</p>
                   </Link>
+                  {adminControl ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        this.props.deleteSpoon(spoon.id)
+                      }}
+                    >
+                      Delete Item
+                    </button>
+                  ) : null}
                 </div>
               )
             })
@@ -76,7 +86,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getSpoons: () => dispatch(fetchSpoons())
+    getSpoons: () => dispatch(fetchSpoons()),
+    deleteSpoon: id => dispatch(deleteSpoonThunk(id))
   }
 }
 

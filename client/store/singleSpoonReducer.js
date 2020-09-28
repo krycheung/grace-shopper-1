@@ -24,6 +24,17 @@ export const getSingleSpoonThunk = spoonId => {
   }
 }
 
+export const updateSpoonThunk = (spoonId, data) => {
+  return async dispatch => {
+    try {
+      const spoonRes = await axios.put(`/api/spoons/${spoonId}`, data)
+      dispatch(getSpoon(spoonRes.data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 ///REDUCER
 
 export default function(state = defaultSingleSpoon, action) {
