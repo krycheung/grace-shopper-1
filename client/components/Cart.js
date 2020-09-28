@@ -19,7 +19,7 @@ class Cart extends React.Component {
     this.handleSubmitQuantity = this.handleSubmitQuantity.bind(this)
     this.handleInputQuantity = this.handleInputQuantity.bind(this)
     //this.handleGetItemId = this.handleGetItemId.bind(this)
-    this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
+    // this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
     this.handleClickCheckout = this.handleClickCheckout.bind(this)
   }
 
