@@ -33,6 +33,7 @@ class Cart extends React.Component {
   }
 
   handleRemove(e) {
+    e.preventDefault()
     this.props.removeItem(e.target.value)
   }
 
