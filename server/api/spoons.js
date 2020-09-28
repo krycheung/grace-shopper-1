@@ -40,6 +40,8 @@ router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
         id: req.params.itemId
       }
     })
+    const spoons = await Spoon.findAll()
+    res.json(spoons)
   } catch (err) {
     console.error(err)
   }

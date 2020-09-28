@@ -65,6 +65,12 @@ form div {
   text-align: left;
 }
 
+.checkoutFormCart {
+  display: flex;
+  flex-flow: wrap;
+  align-items: flex-end;
+}
+
 .fatterSide {
   width: 60%;
 }
