@@ -35,7 +35,7 @@ router.post('/', isAdminMiddleware, async (req, res, next) => {
 
 router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
   try {
-    Spoon.destroy({
+    await Spoon.destroy({
       where: {
         id: req.params.itemId
       }
@@ -46,11 +46,12 @@ router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
 })
 
 router.put('/:itemId', isAdminMiddleware, async (req, res, next) => {
+  let spoon
   try {
-    const spoon = await Spoon.findByPk(req.params.itemId)
+    spoon = await Spoon.findByPk(req.params.itemId)
     spoon.update(req.body)
-    res.json(spoon)
   } catch (err) {
     console.error(err)
   }
+  res.json(spoon)
 })

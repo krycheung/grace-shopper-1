@@ -43,7 +43,6 @@ export const createSpoonThunk = newSpoon => {
 }
 
 export const deleteSpoonThunk = spoonId => {
-  console.log('in thunk?')
   return async dispatch => {
     try {
       const response = await axios.delete(`/api/spoons/${spoonId}`)

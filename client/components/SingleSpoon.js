@@ -16,7 +16,6 @@ export class SingleSpoon extends Component {
   }
 
   adminEdits() {
-    console.log('in single spoon:', this.props)
     if (this.props.user.isAdmin) {
       this.setState({
         adminControl: true
@@ -40,21 +39,22 @@ export class SingleSpoon extends Component {
   }
 
   render() {
-    //console.log("this.props.singleSpoon:", this.props.singleSpoon)
-    const {singleSpoon} = this.props
+    const {spoon} = this.props.singleSpoon
     const {adminControl} = this.state
     return (
       <div>
-        <h1>By: {singleSpoon.brand}</h1>
-        <img src={singleSpoon.imageUrl} />
-        <h3>Name: {singleSpoon.name}</h3>
-        <h3>Description: {singleSpoon.description}</h3>
-        <h2>Material: {singleSpoon.material}</h2>
-        <h3>Price: {singleSpoon.price}</h3>
-        <button onClick={this.handleSubmit}>Add To Cart</button>
+        <h1>By: {spoon.brand}</h1>
+        <img src={spoon.imageUrl} />
+        <h3>Name: {spoon.name}</h3>
+        <h3>Description: {spoon.description}</h3>
+        <h3>Material: {spoon.material}</h3>
+        <h3>Price: {spoon.price}</h3>
+        <button type="button" onClick={this.handleSubmit}>
+          Add To Cart
+        </button>
 
+        <h3>Edit Spoon Details:</h3>
         {adminControl && <UpdateProductForm />}
-        {/* <button onClick={}>Edit Item</button> */}
       </div>
     )
   }

@@ -1,6 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateSpoonThunk} from '../store/singleSpoonReducer'
+import {
+  updateSpoonThunk,
+  getSingleSpoonThunk
+} from '../store/singleSpoonReducer'
 
 class updateSpoon extends React.Component {
   constructor(props) {
@@ -15,6 +18,8 @@ class updateSpoon extends React.Component {
       imageUrl: '',
       quantity: 0
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange = event => {
@@ -42,8 +47,7 @@ class updateSpoon extends React.Component {
       imageUrl,
       quantity
     }
-
-    this.props.createSpoon(newSpoon)
+    this.props.updateSpoon(this.props.singleSpoon.id, newSpoon)
     this.setState({
       brand: '',
       name: '',
@@ -55,6 +59,7 @@ class updateSpoon extends React.Component {
       quantity: 0
     })
   }
+
   render() {
     const {
       brand,
@@ -132,31 +137,38 @@ class updateSpoon extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    createSpoon: (
-      brand,
-      name,
-      material,
-      category,
-      description,
-      price,
-      imageUrl,
-      quantity
-    ) =>
-      dispatch(
-        updateSpoonThunk(
-          brand,
-          name,
-          material,
-          category,
-          description,
-          price,
-          imageUrl,
-          quantity
-        )
-      )
+    singleSpoon: state.singleSpoon
   }
 }
 
-export const UpdateProductForm = connect(null, mapDispatch)(updateSpoon)
+const mapDispatch = dispatch => ({
+  updateSpoon: (
+    id,
+    brand,
+    name,
+    material,
+    category,
+    description,
+    price,
+    imageUrl,
+    quantity
+  ) =>
+    dispatch(
+      updateSpoonThunk(
+        id,
+        brand,
+        name,
+        material,
+        category,
+        description,
+        price,
+        imageUrl,
+        quantity
+      )
+    ),
+  gotSingleSpoon: id => dispatch(getSingleSpoonThunk(id))
+})
+
+export const UpdateProductForm = connect(mapState, mapDispatch)(updateSpoon)

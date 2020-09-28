@@ -11,10 +11,8 @@ class AllSpoons extends React.Component {
       adminControl: false
     }
     this.adminEdits = this.adminEdits.bind(this)
-    // this.handleClick = this.handleClick.bind(this)
   }
   adminEdits() {
-    console.log('in allspoons:', this.props)
     if (this.props.user.isAdmin) {
       this.setState({
         adminControl: true
@@ -59,6 +57,7 @@ class AllSpoons extends React.Component {
                   </Link>
                   {adminControl ? (
                     <button
+                      type="button"
                       onClick={() => {
                         this.props.deleteSpoon(spoon.id)
                       }}
