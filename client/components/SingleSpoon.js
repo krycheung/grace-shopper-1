@@ -7,30 +7,12 @@ import {UpdateProductForm} from './adminUpdateSpoon'
 export class SingleSpoon extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      adminControl: false
-    }
-    this.adminEdits = this.adminEdits.bind(this)
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  adminEdits() {
-    if (this.props.user.isAdmin) {
-      this.setState({
-        adminControl: true
-      })
-    } else {
-      this.setState({
-        adminControl: false
-      })
-    }
-  }
-
   componentDidMount() {
-    //console.log('Comp Did Mount Fired', this.props.match.params.spoonId)
     this.props.gotSingleSpoon(this.props.match.params.spoonId)
-    this.adminEdits()
   }
 
   handleSubmit(event) {
@@ -39,8 +21,7 @@ export class SingleSpoon extends Component {
   }
 
   render() {
-    const {spoon} = this.props.singleSpoon
-    const {adminControl} = this.state
+    const spoon = this.props.singleSpoon
     return (
       <div>
         <h1>By: {spoon.brand}</h1>
@@ -54,7 +35,7 @@ export class SingleSpoon extends Component {
         </button>
 
         <h3>Edit Spoon Details:</h3>
-        {adminControl && <UpdateProductForm />}
+        {this.props.isAdmin ? <UpdateProductForm /> : null}
       </div>
     )
   }
@@ -63,7 +44,8 @@ export class SingleSpoon extends Component {
 const mapState = state => {
   return {
     singleSpoon: state.singleSpoon,
-    user: state.user
+    user: state.user,
+    isAdmin: state.user.isAdmin
   }
 }
 

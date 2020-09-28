@@ -7,25 +7,10 @@ import {ProductForm} from './adminAddProduct'
 class AllSpoons extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      adminControl: false
-    }
-    this.adminEdits = this.adminEdits.bind(this)
   }
-  adminEdits() {
-    if (this.props.user.isAdmin) {
-      this.setState({
-        adminControl: true
-      })
-    } else {
-      this.setState({
-        adminControl: false
-      })
-    }
-  }
+
   componentDidMount() {
     this.props.getSpoons()
-    this.adminEdits()
   }
 
   getSpoonRoute(id) {
@@ -33,14 +18,14 @@ class AllSpoons extends React.Component {
   }
 
   render() {
-    const {adminControl} = this.state
+    const spoons = this.props.spoons
     return (
       <div>
-        {adminControl && <ProductForm />}
+        {this.props.isAdmin ? <ProductForm /> : null}
         <h1>All Spoons</h1>
         <div className="all-spoons-container">
-          {this.props.spoons.length ? (
-            this.props.spoons.map(spoon => {
+          {spoons.length ? (
+            spoons.map(spoon => {
               return (
                 <div className="spoon" key={spoon.id}>
                   <Link to={this.getSpoonRoute(spoon.id)}>
@@ -55,7 +40,7 @@ class AllSpoons extends React.Component {
                     <p>By {spoon.brand}</p>
                     <p>The {spoon.name}</p>
                   </Link>
-                  {adminControl ? (
+                  {this.props.isAdmin ? (
                     <button
                       type="button"
                       onClick={() => {
@@ -80,7 +65,8 @@ class AllSpoons extends React.Component {
 const mapState = state => {
   return {
     spoons: state.spoons,
-    user: state.user
+    user: state.user,
+    isAdmin: state.user.isAdmin
   }
 }
 

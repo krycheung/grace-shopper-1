@@ -19,7 +19,6 @@ class updateSpoon extends React.Component {
       quantity: 0
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange = event => {
