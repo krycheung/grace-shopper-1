@@ -18,6 +18,7 @@ export class SingleSpoon extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.props.addToCart(this.props.match.params.spoonId)
+    alert('Item was added to cart!')
   }
 
   render() {
