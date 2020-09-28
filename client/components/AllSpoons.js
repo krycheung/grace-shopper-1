@@ -7,6 +7,7 @@ import {ProductForm} from './adminAddProduct'
 class AllSpoons extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -15,6 +16,9 @@ class AllSpoons extends React.Component {
 
   getSpoonRoute(id) {
     return `/spoons/${id}`
+  }
+  handleClick(id) {
+    this.props.deleteSpoon(id)
   }
 
   render() {
@@ -44,7 +48,7 @@ class AllSpoons extends React.Component {
                     <button
                       type="button"
                       onClick={() => {
-                        this.props.deleteSpoon(spoon.id)
+                        this.handleClick(spoon.id)
                       }}
                     >
                       Delete Item
