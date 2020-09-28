@@ -15,8 +15,15 @@ router.get('/cart', async (req, res, next) => {
         userId: req.user.id,
         status: false
       },
-      include: Spoon
+      ///// MARTA CHANGED THIS (below) to see if I could get quantity
+      //// to actually load. We don't have it in cart data yet.
+      //// No dice yet. Works, but still loads without quantity attribute.
+      include: {
+        model: Spoon,
+        through: SPOON_ORDER
+      }
     })
+
     res.json(currentCart)
   } catch (err) {
     next(err)
@@ -51,8 +58,8 @@ router.post('/:itemId', async (req, res, next) => {
 
     SPOON_ORDER.create({
       orderId: currentCart.dataValues.id,
-      spoonId: req.params.itemId
-      ///quantity: 7 this will work, if we want to add this to options in singleview.
+      spoonId: req.params.itemId,
+      quantity: 1 // << Marta added this so not just Null. is it redunant or a problem? Not sure I see full picture.
     })
   } catch (err) {
     next(err)
@@ -93,7 +100,7 @@ router.put('/:itemId', async (req, res, next) => {
         spoonId: req.params.itemId
       }
     })
-    currentLineItem.quantity = req.body.quantity // params if thats where we send it on.
+    currentLineItem.quantity = req.body.newQuantity // params if thats where we send it on.
     await currentLineItem.save()
 
     const updatedCart = await Order.findOne({

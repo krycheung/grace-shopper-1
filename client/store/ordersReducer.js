@@ -86,10 +86,18 @@ export const removeItem = itemId => {
   }
 }
 // or two params
-export const updateItem = itemInfoObject => {
+export const updateItem = (itemId, newQuantity) => {
+  console.log(
+    'THUNK updateItem itemId, newQuantity:',
+    itemId,
+    this.state.newQuantity
+  )
   return async dispatch => {
     try {
-      const updatedCartResponse = await axios.put(`/api/orders/${itemId}`) // add req.body {quantity}
+      const updatedCartResponse = await axios.put(
+        `/api/orders/${itemId}`,
+        newQuantity
+      ) // add req.body {quantity}
       const cart = updatedCartResponse.data
       dispatch(getCart(cart))
     } catch (err) {
