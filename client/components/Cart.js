@@ -10,10 +10,15 @@ import {
 class Cart extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      // itemId: 0,
+      newQuantity: 0
+    }
 
     this.handleRemove = this.handleRemove.bind(this)
-    this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
+    this.handleSubmitQuantity = this.handleSubmitQuantity.bind(this)
+    this.handleInputQuantity = this.handleInputQuantity.bind(this)
+    //this.handleGetItemId = this.handleGetItemId.bind(this)
   }
 
   componentDidMount() {
@@ -27,9 +32,21 @@ class Cart extends React.Component {
     this.props.removeItem(e.target.value)
   }
 
-  handleUpdateQuantity(e) {
-    // get info off state
-    this.props.updateItem(e.target.value)
+  handleInputQuantity(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  // handleGetItemId(e) {
+  //   this.setState({
+  //     itemId: e.target.value
+  //   })
+  // }
+
+  handleSubmitQuantity(itemId) {
+    console.log('CART @ handleSubmitQuantity:', itemId, this.state.newQuantity)
+    this.props.updateItem(itemId, this.state.newQuantity)
   }
 
   render() {
@@ -52,20 +69,48 @@ class Cart extends React.Component {
                         <h2>No image</h2>
                       )}
                     </div>
-                    <p>Brand: {spoon.brand}</p>
-                    <p>Name: {spoon.name}</p>
-                    <p>Price: ${spoon.price}</p>
+                    <div>
+                      <p>Brand: {spoon.brand}</p>
+                      <p>Name: {spoon.name}</p>
+                      <p>Price: ${spoon.price}</p>
+                      <p>Quantity: {spoon.SPOON_ORDER.quantity}</p>
+                    </div>
 
-                    {/* and/or set state to hold new quantity num. 
-                  CAN the value={stuff}  on change quantity button be an object that has {itemID, NewQuantity}  */}
-                    <button
-                      className="space"
-                      onClick={this.handleRemove}
-                      value={spoon.id}
-                      type="button"
-                    >
-                      Remove Item
-                    </button>
+                    <div>
+                      <form
+                        onSubmit={() => this.handleSubmitQuantity(spoon.id)}
+                      >
+                        {/* <form onSubmit={this.handleUpdateQuantity}> */}
+                        <div>
+                          <label htmlFor="newQuantity">Change Quantity: </label>
+                          <input
+                            onChange={this.handleInputQuantity}
+                            type="number"
+                            name="newQuantity"
+                            step="1"
+                            min="1"
+                            ///defaultValue={spoon.SPOON_ORDER.quantity} // not working.
+                            value={this.state.newQuantity}
+                            // value={{ newQuantity: this.state.newQuantity, itemId: spoon.id }}
+                          />
+                        </div>
+
+                        <button onClick={this.handleGetItemId} type="submit">
+                          Update
+                        </button>
+                      </form>
+                    </div>
+
+                    <div>
+                      <button
+                        className="space"
+                        // onClick={this.handleRemove}
+                        value={spoon.id}
+                        type="button"
+                      >
+                        Remove Item
+                      </button>
+                    </div>
                   </div>
                 )
               })}
@@ -126,8 +171,12 @@ const mapDispatch = dispatch => {
     getHistory: () => dispatch(fetchOrders()),
     removeItem: itemId => dispatch(removeItem(itemId)),
     // CAN WE SEND AN OBJECT: {itemID, NewQuantity} ??
-    updateItem: iteminfoObj => dispatch(updateItem(iteminfoObj))
+    updateItem: (itemId, newQuantity) =>
+      dispatch(updateItem(itemId, newQuantity))
   }
 }
 
 export default connect(mapState, mapDispatch)(Cart)
+
+//and/or set state to hold new quantity num.
+// CAN the value={stuff}  on change quantity button be an object that has {itemID, NewQuantity}
