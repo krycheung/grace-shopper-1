@@ -6,10 +6,23 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      useAddress: true
+      useAddress: true,
+      name: '',
+      address: '',
+      city: '',
+      zip: '',
+      errorMessage: '*required field'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.useDifAddress = this.useDifAddress.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event) {
+    const currentKey = event.target.name
+    this.setState({
+      [currentKey]: event.target.value
+    })
   }
 
   handleSubmit(event) {
@@ -42,6 +55,9 @@ class CheckoutForm extends React.Component {
 
   render() {
     const cart = this.props.cart
+    const requiredField = (
+      <span className="required">{this.state.errorMessage}</span>
+    )
     return (
       <div className="sideby">
         <div className="halfWidth medLeftMargin">
@@ -60,17 +76,34 @@ class CheckoutForm extends React.Component {
               <div>
                 <h4>Shipping Information</h4>
                 <label htmlFor="name">Name</label>
-                <input type="text" name="name" placeholder="Enter name here" />
+                <input
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  placeholder="Enter name here"
+                  onChange={this.handleChange}
+                />
+                {requiredField}
                 <label htmlFor="address">Address</label>
                 <input
                   type="text"
                   name="address"
+                  value={this.state.address}
                   placeholder="Enter address here"
+                  onChange={this.handleChange}
                 />
+                {requiredField}
                 <label htmlFor="address2">Address Line 2 (optional)</label>
                 <input type="text" name="address2" placeholder="Ex: Apt 5C" />
                 <label htmlFor="city">City</label>
-                <input type="text" name="city" placeholder="Enter city here" />
+                <input
+                  type="text"
+                  name="city"
+                  value={this.state.city}
+                  placeholder="Enter city here"
+                  onChange={this.handleChange}
+                />
+                {requiredField}
                 <label htmlFor="state">State</label>
                 <select>
                   <option value="AL">Alabama</option>
@@ -129,8 +162,11 @@ class CheckoutForm extends React.Component {
                 <input
                   type="text"
                   name="zip"
+                  value={this.state.zip}
                   placeholder="Enter ZipCode here"
+                  onChange={this.handleChange}
                 />
+                {requiredField}
                 <hr />
                 <ContactAndPayment />
               </div>
