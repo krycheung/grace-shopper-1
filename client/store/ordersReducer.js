@@ -2,8 +2,6 @@ import axios from 'axios'
 
 export const GET_ORDERS = 'GET_ORDERS'
 export const GET_CART = 'GET_CART'
-// export const REMOVE_ITEM = 'REMOVE_ITEM'
-export const ADD_TO_CART = 'ADD_TO_CART'
 
 export const getOrders = orders => ({
   type: GET_ORDERS,
@@ -14,16 +12,6 @@ export const getCart = cart => ({
   type: GET_CART,
   cart
 })
-
-export const addToCart = cart => ({
-  type: ADD_TO_CART,
-  cart
-})
-
-// export const remove = itemId => ({
-//   type: REMOVE_ITEM,
-//   itemId
-// })
 
 export const fetchOrders = () => {
   return async dispatch => {
@@ -85,19 +73,13 @@ export const removeItem = itemId => {
     }
   }
 }
-// or two params
+
 export const updateItem = (itemId, newQuantity) => {
-  console.log(
-    'THUNK updateItem itemId, newQuantity:',
-    itemId,
-    this.state.newQuantity
-  )
   return async dispatch => {
     try {
-      const updatedCartResponse = await axios.put(
-        `/api/orders/${itemId}`,
+      const updatedCartResponse = await axios.put(`/api/orders/${itemId}`, {
         newQuantity
-      ) // add req.body {quantity}
+      })
       const cart = updatedCartResponse.data
       dispatch(getCart(cart))
     } catch (err) {
@@ -114,8 +96,6 @@ export default function(state = initialState, action) {
       return {...state, orders: action.orders}
     case GET_CART:
       return {...state, cart: action.cart}
-    // case ADD_TO_CART:
-    //   return {...state, cart: {...spoons, spoons: action.item}}
     default:
       return state
   }

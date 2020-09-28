@@ -109,6 +109,19 @@ form div {
   text-align: right;
 }
 
+.AlignSelfLeft {
+  justify-self: flex-start;
+  align-self: flex-start;
+  text-align: left;
+}
+
 .row {
   flex-direction: row;
+}
+
+.cartItemsContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
 }

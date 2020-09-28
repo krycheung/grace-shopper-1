@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {User, Spoon, Order, SPOON_ORDER} = require('../db/models')
 
+// Get User Current Cart:
 router.get('/cart', async (req, res, next) => {
   let currentCart
   try {
@@ -15,9 +16,6 @@ router.get('/cart', async (req, res, next) => {
         userId: req.user.id,
         status: false
       },
-      ///// MARTA CHANGED THIS (below) to see if I could get quantity
-      //// to actually load. We don't have it in cart data yet.
-      //// No dice yet. Works, but still loads without quantity attribute.
       include: {
         model: Spoon,
         through: SPOON_ORDER
@@ -30,7 +28,7 @@ router.get('/cart', async (req, res, next) => {
   }
 })
 
-// THIS WORKS GREAT:
+// Get User Order History:
 router.get('/history', async (req, res, next) => {
   try {
     let historyResponse = await Order.findAll({
@@ -46,7 +44,7 @@ router.get('/history', async (req, res, next) => {
   }
 })
 
-// Add an item to cart
+// Add an item to cart:
 router.post('/:itemId', async (req, res, next) => {
   try {
     let currentCart = await Order.findOne({
@@ -59,14 +57,14 @@ router.post('/:itemId', async (req, res, next) => {
     SPOON_ORDER.create({
       orderId: currentCart.dataValues.id,
       spoonId: req.params.itemId,
-      quantity: 1 // << Marta added this so not just Null. is it redunant or a problem? Not sure I see full picture.
+      quantity: 1
     })
   } catch (err) {
     next(err)
   }
 })
 
-// For submitting an order.
+// Submit an order:
 router.put('/checkout', async (req, res, next) => {
   try {
     let currentCart = await Order.findOne({
@@ -83,9 +81,9 @@ router.put('/checkout', async (req, res, next) => {
   }
 })
 
-// FOR update Quantity
+// Update Quantity in Cart:
 router.put('/:itemId', async (req, res, next) => {
-  console.log('@ /put for Update Quantity, req.body', req.body)
+  console.log('@ /put for Update Quantity, req.body', req.body.newQuantity)
   try {
     let currentCart = await Order.findOne({
       where: {
@@ -100,7 +98,7 @@ router.put('/:itemId', async (req, res, next) => {
         spoonId: req.params.itemId
       }
     })
-    currentLineItem.quantity = req.body.newQuantity // params if thats where we send it on.
+    currentLineItem.quantity = req.body.newQuantity
     await currentLineItem.save()
 
     const updatedCart = await Order.findOne({
@@ -116,9 +114,8 @@ router.put('/:itemId', async (req, res, next) => {
   }
 })
 
-// Yes, /:itemId needed, used to locate instance in destroy call.
+// Delete item from Cart:
 router.delete('/:itemId', async (req, res, next) => {
-  console.log('@ router.delete THIS IS req.params: ', req.params)
   try {
     let currentCart = await Order.findOne({
       where: {
@@ -126,15 +123,6 @@ router.delete('/:itemId', async (req, res, next) => {
         status: false
       }
     })
-
-    // let currentOrder = await SPOON_ORDER.findAll({
-    //   where: {
-    //     orderId: currentCart.dataValues.id,
-    //   },
-    // })
-
-    //what if we findbyPk, on Spoon, remove Order, but
-    // prob same exact challenges.
     SPOON_ORDER.destroy({
       where: {
         spoonId: req.params.itemId,
