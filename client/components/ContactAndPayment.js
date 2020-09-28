@@ -51,6 +51,7 @@ export default class ContactAndPayment extends React.Component {
         />
         {requiredField}
         <label htmlFor="inputCard">Card Number</label>
+        {requiredField}
         <input
           className="inputCard"
           type="text"
@@ -59,7 +60,6 @@ export default class ContactAndPayment extends React.Component {
           id="creditCard1"
           onChange={this.handleChange}
         />
-        {requiredField}
         -
         <input
           className="inputCard"
