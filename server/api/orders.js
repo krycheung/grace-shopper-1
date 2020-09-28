@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Spoon, Order, SPOON_ORDER} = require('../db/models')
+const {User, Spoon, Order, SpoonOrder} = require('../db/models')
 
 // Get User Current Cart:
 router.get('/cart', async (req, res, next) => {
@@ -18,7 +18,7 @@ router.get('/cart', async (req, res, next) => {
       },
       include: {
         model: Spoon,
-        through: SPOON_ORDER
+        through: SpoonOrder
       }
     })
 
@@ -54,7 +54,7 @@ router.post('/:itemId', async (req, res, next) => {
       }
     })
 
-    SPOON_ORDER.create({
+    SpoonOrder.create({
       orderId: currentCart.dataValues.id,
       spoonId: req.params.itemId,
       quantity: 1
@@ -92,7 +92,7 @@ router.put('/:itemId', async (req, res, next) => {
       }
     })
 
-    let currentLineItem = await SPOON_ORDER.findOne({
+    let currentLineItem = await SpoonOrder.findOne({
       where: {
         orderId: currentCart.dataValues.id,
         spoonId: req.params.itemId
@@ -123,7 +123,7 @@ router.delete('/:itemId', async (req, res, next) => {
         status: false
       }
     })
-    SPOON_ORDER.destroy({
+    SpoonOrder.destroy({
       where: {
         spoonId: req.params.itemId,
         orderId: currentCart.dataValues.id

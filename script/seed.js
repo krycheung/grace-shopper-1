@@ -1,5 +1,5 @@
 const db = require('../server/db')
-const {Spoon, User, Order, SPOON_ORDER} = require('../server/db/models')
+const {Spoon, User, Order, SpoonOrder} = require('../server/db/models')
 
 const anHourFromNow = new Date(Date.now() + 60 * (60 * 1000)).toString()
 

@@ -37,10 +37,12 @@ export class SingleSpoon extends Component {
           </button>
         </div>
 
-        <div className="halfWidth smLeftMargin">
-          <h3>Edit Spoon Details:</h3>
-          {this.props.isAdmin ? <UpdateProductForm /> : null}
-        </div>
+        {this.props.isAdmin ? (
+          <div className="halfWidth smLeftMargin">
+            <h3>Edit Spoon Details:</h3>
+            <UpdateProductForm />{' '}
+          </div>
+        ) : null}
       </div>
     )
   }

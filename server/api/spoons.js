@@ -17,7 +17,7 @@ router.get('/:id', async (req, res, next) => {
   const spoonId = req.params.id
   try {
     const spoonRes = await Spoon.findByPk(spoonId)
-    res.send(spoonRes.dataValues)
+    res.json(spoonRes)
   } catch (err) {
     next(err)
   }
@@ -43,7 +43,7 @@ router.delete('/:itemId', isAdminMiddleware, async (req, res, next) => {
     const spoons = await Spoon.findAll()
     res.json(spoons)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 
@@ -53,7 +53,7 @@ router.put('/:itemId', isAdminMiddleware, async (req, res, next) => {
     spoon = await Spoon.findByPk(req.params.itemId)
     spoon.update(req.body)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
   res.json(spoon)
 })

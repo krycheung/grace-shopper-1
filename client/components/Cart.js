@@ -43,7 +43,8 @@ class Cart extends React.Component {
     })
   }
 
-  handleSubmitQuantity(itemId) {
+  handleSubmitQuantity(e, itemId) {
+    e.preventDefault()
     console.log('CART @ handleSubmitQuantity:', itemId, this.state.newQuantity)
     this.props.updateItem(itemId, this.state.newQuantity)
   }
@@ -75,11 +76,11 @@ class Cart extends React.Component {
                       <p>Brand: {spoon.brand}</p>
                       <p>Name: {spoon.name}</p>
                       <p>Price: ${spoon.price}</p>
-                      <p>Quantity: {spoon.SPOON_ORDER.quantity}</p>
+                      <p>Quantity: {spoon.SpoonOrder.quantity}</p>
                     </div>
                     <form
                       className="AlignSelfLeft"
-                      onSubmit={() => this.handleSubmitQuantity(spoon.id)}
+                      onSubmit={e => this.handleSubmitQuantity(e, spoon.id)}
                     >
                       <label className="space" htmlFor="newQuantity">
                         Change Quantity:{' '}
