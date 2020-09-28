@@ -17,13 +17,13 @@ const Order = require('./order')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
-const SPOON_ORDER = db.define('SPOON_ORDER', {
+const SpoonOrder = db.define('SpoonOrder', {
   quantity: {
     type: Sequelize.INTEGER
   }
 })
-Spoon.belongsToMany(Order, {through: SPOON_ORDER})
-Order.belongsToMany(Spoon, {through: SPOON_ORDER})
+Spoon.belongsToMany(Order, {through: SpoonOrder})
+Order.belongsToMany(Spoon, {through: SpoonOrder})
 User.hasMany(Order)
 Order.belongsTo(User)
 
@@ -31,5 +31,5 @@ module.exports = {
   User,
   Spoon,
   Order,
-  SPOON_ORDER
+  SpoonOrder
 }
