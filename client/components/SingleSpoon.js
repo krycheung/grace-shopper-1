@@ -23,19 +23,23 @@ export class SingleSpoon extends Component {
   render() {
     const spoon = this.props.singleSpoon
     return (
-      <div>
-        <h1>By: {spoon.brand}</h1>
-        <img src={spoon.imageUrl} />
-        <h3>Name: {spoon.name}</h3>
-        <h3>Description: {spoon.description}</h3>
-        <h3>Material: {spoon.material}</h3>
-        <h3>Price: {spoon.price}</h3>
-        <button type="button" onClick={this.handleSubmit}>
-          Add To Cart
-        </button>
+      <div className="sideby">
+        <div className="halfWidth medLeftMargin">
+          <h1>Name: {spoon.name}</h1>
+          <img className="spoon-img" src={spoon.imageUrl} />
+          <h3>By: {spoon.brand}</h3>
+          <h3>Description: {spoon.description}</h3>
+          <h3>Material: {spoon.material}</h3>
+          <h3>Price: ${spoon.price}</h3>
+          <button type="button" onClick={this.handleSubmit}>
+            Add To Cart
+          </button>
+        </div>
 
-        <h3>Edit Spoon Details:</h3>
-        {this.props.isAdmin ? <UpdateProductForm /> : null}
+        <div className="halfWidth smLeftMargin">
+          <h3>Edit Spoon Details:</h3>
+          {this.props.isAdmin ? <UpdateProductForm /> : null}
+        </div>
       </div>
     )
   }
