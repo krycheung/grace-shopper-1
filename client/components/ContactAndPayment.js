@@ -9,6 +9,7 @@ export default function ContactAndPayment() {
       <h4>Payment Information</h4>
       <label htmlFor="nameOnCard">Name Of Cardholder</label>
       <input type="text" name="nameOnCard" placeholder="Cardholder name" />
+      <label htmlFor="inputCard">Card Number</label>
       <input
         className="inputCard"
         type="text"
