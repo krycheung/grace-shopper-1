@@ -61,6 +61,19 @@ export const addToCartThunk = itemId => {
   }
 }
 
+export const checkoutCartThunk = () => {
+  return async dispatch => {
+    try {
+      await axios.put('/api/orders/checkout')
+      const updatedOrders = await axios.get('/api/orders/history')
+      const orders = await updatedOrders.data
+      dispatch(getOrders(orders))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const removeItem = itemId => {
   return async dispatch => {
     try {

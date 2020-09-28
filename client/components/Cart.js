@@ -14,6 +14,7 @@ class Cart extends React.Component {
 
     this.handleRemove = this.handleRemove.bind(this)
     this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
+    this.handleClickCheckout = this.handleClickCheckout.bind(this)
   }
 
   componentDidMount() {
@@ -21,6 +22,11 @@ class Cart extends React.Component {
 
     this.props.getCart()
     this.props.getHistory()
+  }
+
+  handleClickCheckout(e) {
+    e.preventDefault()
+    this.props.history.push('/checkoutform')
   }
 
   handleRemove(e) {
@@ -34,12 +40,12 @@ class Cart extends React.Component {
 
   render() {
     let cart = this.props.cart
-    let history = this.props.history
+    let history = this.props.orderHistory
     return (
       <div className="sideby">
         <div className="halfWidth medLeftMargin">
           <h1>Cart</h1>
-          <h4>You have {cart.spoons.length} in your cart.</h4>
+          <h4>You have {cart.spoons.length} items in your cart.</h4>
           {cart.spoons.length ? (
             <div>
               {cart.spoons.map(spoon => {
@@ -70,7 +76,11 @@ class Cart extends React.Component {
                 )
               })}
               <div className="justifySelfRight row">
-                <button className="largeRightMargin" type="submit">
+                <button
+                  onClick={this.handleClickCheckout}
+                  className="largeRightMargin"
+                  type="button"
+                >
                   Checkout
                 </button>
               </div>
@@ -116,7 +126,7 @@ const mapState = state => {
   return {
     cart: state.orders.cart,
     user: state.user,
-    history: state.orders.orders
+    orderHistory: state.orders.orders
   }
 }
 
