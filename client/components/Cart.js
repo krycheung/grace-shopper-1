@@ -22,8 +22,9 @@ class Cart extends React.Component {
 
   componentDidMount() {
     // where we have a switch case for signed in or not (local state stuff)??
-
-    this.props.getCart()
+    let loggedIn = !!this.props.user.id
+    console.log('@ CompDidMount:', loggedIn)
+    this.props.getCart(loggedIn)
     this.props.getHistory()
   }
 
@@ -34,7 +35,9 @@ class Cart extends React.Component {
 
   handleRemove(e) {
     e.preventDefault()
-    this.props.removeItem(e.target.value)
+    let loggedIn = !!this.props.user.id
+    console.log('@ Handle Remove:', loggedIn)
+    this.props.removeItem(e.target.value, loggedIn)
   }
 
   handleInputQuantity(e) {
@@ -45,7 +48,6 @@ class Cart extends React.Component {
 
   handleSubmitQuantity(e, itemId) {
     e.preventDefault()
-    console.log('CART @ handleSubmitQuantity:', itemId, this.state.newQuantity)
     this.props.updateItem(itemId, this.state.newQuantity)
   }
 
@@ -170,7 +172,8 @@ const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchCart()),
     getHistory: () => dispatch(fetchOrders()),
-    removeItem: itemId => dispatch(removeItem(itemId)),
+    removeItem: (itemId, isLoggedIn) =>
+      dispatch(removeItem(itemId, isLoggedIn)),
     updateItem: (itemId, newQuantity) =>
       dispatch(updateItem(itemId, newQuantity))
   }
