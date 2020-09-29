@@ -45,7 +45,6 @@ class Cart extends React.Component {
 
   handleSubmitQuantity(e, itemId) {
     e.preventDefault()
-    console.log('CART @ handleSubmitQuantity:', itemId, this.state.newQuantity)
     this.props.updateItem(itemId, this.state.newQuantity)
   }
 
