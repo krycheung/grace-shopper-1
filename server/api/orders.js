@@ -59,6 +59,7 @@ router.post('/:itemId', async (req, res, next) => {
       spoonId: req.params.itemId,
       quantity: 1
     })
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }

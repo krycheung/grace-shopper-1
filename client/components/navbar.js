@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {fetchCart} from '../store/ordersReducer'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin, totalItems}) => (
   <div>
     <h1>SPOON WEBSITE</h1>
     <nav>
@@ -13,7 +14,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/spoons">All Products</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">Cart ({totalItems})</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -25,7 +26,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/spoons">All Products</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">Cart ({totalItems}) </Link>
         </div>
       )}
     </nav>
@@ -39,7 +40,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: state.user.isAdmin,
+    totalItems: state.orders.cart.quantity
   }
 }
 
@@ -47,7 +49,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    getCart: () => dispatch(fetchCart())
   }
 }
 
