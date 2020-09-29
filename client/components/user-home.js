@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+// import 'user-home.styles.scss'
 
 /**
  * COMPONENT
@@ -11,6 +12,16 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <div className="homepage">
+        <div className="directory-menu">
+          <div className="menu-item">
+            <div className="content">
+              <h1 className="title">Spoons</h1>
+              <span className="subtitle">Shop Now</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

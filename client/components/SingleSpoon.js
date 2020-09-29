@@ -3,6 +3,7 @@ import {getSingleSpoonThunk} from '../store/singleSpoonReducer'
 import {addToCartThunk} from '../store/ordersReducer'
 import {connect} from 'react-redux'
 import {UpdateProductForm} from './adminUpdateSpoon'
+import toaster from 'toasted-notes'
 
 export class SingleSpoon extends Component {
   constructor(props) {
@@ -17,8 +18,9 @@ export class SingleSpoon extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+
     this.props.addToCart(this.props.match.params.spoonId)
-    alert('Item was added to cart!')
+    toaster.notify('Item was added to cart!', {duration: 2000})
   }
 
   render() {
