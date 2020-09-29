@@ -7,6 +7,8 @@ import {
   updateItem
 } from '../store/ordersReducer'
 
+import StripeCheckoutButton from './stripe-button/stripe-button'
+
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -108,6 +110,7 @@ class Cart extends React.Component {
                         Remove Item
                       </button>
                     </div>
+                    <StripeCheckoutButton />
                   </div>
                 )
               })}
