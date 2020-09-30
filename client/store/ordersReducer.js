@@ -25,51 +25,26 @@ export const fetchOrders = () => {
   }
 }
 
-export const fetchCart = loggedInBoolean => {
+export const fetchCart = () => {
   return async dispatch => {
-    if (loggedInBoolean) {
-      try {
-        const foundCartResponse = await axios.get('/api/orders/cart')
-        const cart = foundCartResponse.data
-        dispatch(getCart(cart))
-      } catch (err) {
-        console.error(err)
-      }
-    } else {
-      if (localStorage.getItem('cart') === null) {
-        localStorage.setItem('cart', JSON.stringify({spoons: []}))
-      }
-      const cart = JSON.parse(localStorage.getItem('cart'))
+    try {
+      const foundCartResponse = await axios.get('/api/orders/cart')
+      const cart = foundCartResponse.data
       dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
     }
   }
 }
 
-export const addToCartThunk = (itemId, loggedInBoolean) => {
+export const addToCartThunk = itemId => {
   return async dispatch => {
-    if (loggedInBoolean) {
-      try {
-        const updatedCartResponse = await axios.post(`/api/orders/${itemId}`)
-        const cart = updatedCartResponse.data
-        dispatch(getCart(cart))
-      } catch (err) {
-        console.error(err)
-      }
-    } else {
-      try {
-        const singleSpoonRes = await axios.get(`/api/spoons/${itemId}`)
-        let spoon = {...singleSpoonRes.data, SpoonOrder: {quantity: 1}}
-        // PUT THAT on local storage
-        // hand me local storage,
-        // Imma put it on State>stora>props (so I can map )
-        //on localstroage: {spoons: [{...spoon, SpoonOrder: {quantitiy: 1} }, {spoon}, ] }
-        let cart = JSON.parse(localStorage.getItem('cart'))
-        cart.spoons.push(spoon)
-        localStorage.setItem('cart', JSON.stringify(cart))
-        dispatch(getCart(cart))
-      } catch (err) {
-        console.error(err)
-      }
+    try {
+      const updatedCartResponse = await axios.post(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
+      dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
     }
   }
 }
@@ -87,24 +62,14 @@ export const checkoutCartThunk = () => {
   }
 }
 
-export const removeItem = (itemId, loggedInBoolean) => {
+export const removeItem = itemId => {
   return async dispatch => {
-    if (loggedInBoolean) {
-      try {
-        const updatedCartResponse = await axios.delete(`/api/orders/${itemId}`)
-        const cart = updatedCartResponse.data
-        dispatch(getCart(cart))
-      } catch (err) {
-        console.error(err)
-      }
-    } else {
-      let cart = JSON.parse(localStorage.getItem('cart'))
-      let updatedSpoons = cart.spoons.filter(
-        spoon => Number(spoon.id) !== Number(itemId)
-      )
-      localStorage.setItem('cart', JSON.stringify({spoons: updatedSpoons}))
-      cart = JSON.parse(localStorage.getItem('cart'))
+    try {
+      const updatedCartResponse = await axios.delete(`/api/orders/${itemId}`)
+      const cart = updatedCartResponse.data
       dispatch(getCart(cart))
+    } catch (err) {
+      console.error(err)
     }
   }
 }

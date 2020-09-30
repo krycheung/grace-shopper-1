@@ -22,9 +22,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.getCart()
-
     this.props.getHistory()
   }
 
@@ -35,9 +33,7 @@ class Cart extends React.Component {
 
   handleRemove(e) {
     e.preventDefault()
-    let loggedIn = !!this.props.user.id
-    console.log('@ Handle Remove:', loggedIn)
-    this.props.removeItem(e.target.value, loggedIn)
+    this.props.removeItem(e.target.value)
   }
 
   handleInputQuantity(e) {
@@ -185,8 +181,7 @@ const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchCart()),
     getHistory: () => dispatch(fetchOrders()),
-    removeItem: (itemId, isLoggedIn) =>
-      dispatch(removeItem(itemId, isLoggedIn)),
+    removeItem: itemId => dispatch(removeItem(itemId)),
     updateItem: (itemId, newQuantity) =>
       dispatch(updateItem(itemId, newQuantity))
   }

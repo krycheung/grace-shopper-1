@@ -17,8 +17,7 @@ export class SingleSpoon extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    let loggedIn = !!this.props.user.id
-    this.props.addToCart(this.props.match.params.spoonId, loggedIn)
+    this.props.addToCart(this.props.match.params.spoonId)
     alert('Item was added to cart!')
   }
 
