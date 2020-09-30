@@ -15,7 +15,6 @@ class updateSpoon extends React.Component {
       category: '',
       description: '',
       price: 0,
-      imageUrl: '',
       quantity: 0
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -33,7 +32,6 @@ class updateSpoon extends React.Component {
       category,
       description,
       price,
-      imageUrl,
       quantity
     } = this.state
     const newSpoon = {
@@ -43,7 +41,6 @@ class updateSpoon extends React.Component {
       category,
       description,
       price,
-      imageUrl,
       quantity
     }
     this.props.updateSpoon(this.props.singleSpoon.id, newSpoon)
@@ -54,7 +51,6 @@ class updateSpoon extends React.Component {
       category: '',
       description: '',
       price: 0,
-      imageUrl: '',
       quantity: 0
     })
   }
@@ -67,7 +63,6 @@ class updateSpoon extends React.Component {
       category,
       description,
       price,
-      imageUrl,
       quantity
     } = this.state
     return (
@@ -115,14 +110,7 @@ class updateSpoon extends React.Component {
             value={price}
             onChange={this.handleChange}
           />
-          <label htmlFor="imageUrl">Image:</label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={imageUrl}
-            onChange={this.handleChange}
-          />
-          <label htmlFor="quantity">Quantity:</label>
+          <label htmlFor="quantity">Stock Quantity:</label>
           <input
             type="number"
             name="quantity"
@@ -151,7 +139,6 @@ const mapDispatch = dispatch => ({
     category,
     description,
     price,
-    imageUrl,
     quantity
   ) =>
     dispatch(
@@ -163,7 +150,6 @@ const mapDispatch = dispatch => ({
         category,
         description,
         price,
-        imageUrl,
         quantity
       )
     ),

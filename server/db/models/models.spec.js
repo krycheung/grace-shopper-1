@@ -68,6 +68,3 @@ describe('Models', () => {
     }) // end describe ('order associations')
   }) // end describe('instanceMethods')
 }) // end describe('User model')
-
-// const spoon1 = await Spoon.create({brand: 'IKEA'})
-// const spoon2 = await Spoon.create({brand: 'Crate&Barrel'})

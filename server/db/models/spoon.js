@@ -5,7 +5,6 @@ const db = require('../db')
 const Spoon = db.define('spoons', {
   brand: {
     type: Sequelize.STRING,
-    // allowNull: false,
     validate: {
       notEmpty: true
     }
@@ -15,7 +14,6 @@ const Spoon = db.define('spoons', {
   },
   material: {
     type: Sequelize.STRING,
-    // allowNull: false,
     validate: {
       notEmpty: true
     }

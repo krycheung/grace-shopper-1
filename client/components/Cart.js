@@ -18,11 +18,10 @@ class Cart extends React.Component {
     this.handleSubmitQuantity = this.handleSubmitQuantity.bind(this)
     this.handleInputQuantity = this.handleInputQuantity.bind(this)
     this.handleClickCheckout = this.handleClickCheckout.bind(this)
+    this.convertDate = this.convertDate.bind(this)
   }
 
   componentDidMount() {
-    // where we have a switch case for signed in or not (local state stuff)??
-
     this.props.getCart()
     this.props.getHistory()
   }
@@ -48,14 +47,27 @@ class Cart extends React.Component {
     this.props.updateItem(itemId, this.state.newQuantity)
   }
 
+  convertDate(date) {
+    let newDate = new Date(date)
+    return (
+      (newDate.getMonth() > 8
+        ? newDate.getMonth() + 1
+        : '0' + (newDate.getMonth() + 1)) +
+      '/' +
+      (newDate.getDate() > 9 ? newDate.getDate() : '0' + newDate.getDate()) +
+      '/' +
+      newDate.getFullYear()
+    )
+  }
+
   render() {
     let cart = this.props.cart
     let history = this.props.orderHistory
+
     return (
       <div className="sideby">
         <div className="halfWidth medLeftMargin">
           <h1>Cart</h1>
-          <h4>You have {cart.spoons.length} items in your cart.</h4>
           {cart.spoons.length ? (
             <div>
               {cart.spoons.map(spoon => {
@@ -129,7 +141,7 @@ class Cart extends React.Component {
           {history.map(order => {
             return (
               <div key={'order' + order.id}>
-                <h4>Date: {order.dateCreated}</h4>
+                <h4>Date: {this.convertDate(order.updatedAt)}</h4>
                 <div className="history-spoons-container">
                   {order.spoons.map(spoon => {
                     return (
