@@ -12,7 +12,9 @@ class addProduct extends React.Component {
       category: '',
       description: '',
       price: 0,
-      imageUrl: '',
+      imageUrl:
+        null ||
+        'https://static.onecms.io/wp-content/uploads/sites/9/2017/04/kawaii-cute-spoon-appliance-gifts-blog0417.jpg',
       quantity: 0
     }
   }
@@ -118,7 +120,7 @@ class addProduct extends React.Component {
             value={imageUrl}
             onChange={this.handleChange}
           />
-          <label htmlFor="quantity">Quantity:</label>
+          <label htmlFor="quantity">Stock Quantity:</label>
           <input
             type="number"
             name="quantity"

@@ -40,7 +40,9 @@ class CheckoutForm extends React.Component {
   calculateTax() {
     let tax = 0
     this.props.cart.spoons.forEach(spoon => {
-      tax += spoon.price * 0.04
+      const quantity = spoon.SpoonOrder.quantity
+
+      tax += spoon.price * quantity * 0.04
     })
     return Math.round(tax * 1000) / 1000
   }
@@ -48,9 +50,19 @@ class CheckoutForm extends React.Component {
   calculateTotalPrice() {
     let totalPrice = 0
     this.props.cart.spoons.forEach(spoon => {
-      totalPrice += spoon.price
+      const quantity = spoon.SpoonOrder.quantity
+      totalPrice += spoon.price * quantity
     })
     return totalPrice + this.calculateTax()
+  }
+
+  calculateTotalItems() {
+    let totalQty = 0
+    this.props.cart.spoons.forEach(spoon => {
+      const quantity = spoon.SpoonOrder.quantity
+      totalQty = totalQty + quantity
+    })
+    return totalQty
   }
 
   render() {
@@ -177,7 +189,7 @@ class CheckoutForm extends React.Component {
         </div>
         <div className="halfWidth smLeftMargin">
           <h3>Cart</h3>
-          <h4>You have {cart.spoons.length} items in your cart.</h4>
+          <h4>You have {this.calculateTotalItems()} items in your cart.</h4>
           <div className="checkOutFormCart">
             {cart.spoons.map(spoon => {
               return (
@@ -191,6 +203,7 @@ class CheckoutForm extends React.Component {
                   </div>
                   <p>Name: {spoon.name}</p>
                   <p>Price: ${spoon.price}</p>
+                  <p>Quantity: {spoon.SpoonOrder.quantity}</p>
                 </div>
               )
             })}

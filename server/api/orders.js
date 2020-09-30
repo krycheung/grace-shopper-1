@@ -84,7 +84,6 @@ router.put('/checkout', async (req, res, next) => {
 
 // Update Quantity in Cart:
 router.put('/:itemId', async (req, res, next) => {
-  console.log('@ /put for Update Quantity, req.body', req.body.newQuantity)
   try {
     let currentCart = await Order.findOne({
       where: {
